@@ -1,15 +1,23 @@
 from flask import Blueprint, request, render_template
-from models import Order, Customer, Product, ProductOrder
+from models import Order, Customer, Product, ProductOrder, Assignment
 from db import db
 
-api_customers_bp = Blueprint("api_customers", __name__)
+api_assignments_bp = Blueprint("api_assignments", __name__)
+#api_customers_bp = Blueprint("api_customers", __name__)
 
-
-@api_customers_bp.route("/customers")
-def customers():
-    statement = db.select(Customer).order_by(Customer.id)
+@api_assignments_bp.route("/assignments")
+def assignments():
+    statement = db.select(Assignment).order_by(Assignment.id)
     results = db.session.execute(statement).scalars()
-    return render_template("customers.html", customers=results)
+    return render_template("assignments.html", assignments=results)
+
+# @api_customers_bp.route("/customers")
+# def customers():
+#     statement = db.select(Customer).order_by(Customer.id)
+#     results = db.session.execute(statement).scalars()
+#     return render_template("customers.html", customers=results)
+
+
 
 @api_customers_bp.route("customers/<int:customer_id>")
 def customer_detail(customer_id):
