@@ -11,7 +11,7 @@ class Assignment(db.Model):
     description = mapped_column(String(200), nullable=False)
     due_date = mapped_column(String(100), nullable=False)
     submission_status = mapped_column(String(200), nullable=False)
-    course_id = mapped_column(Integer, ForeignKey('course.course_id'), nullable=False)
+    course_id = mapped_column(Integer, ForeignKey(Course.course_id), nullable=False)
     course = relationship("Course", back_populates="assignments")
   
 
@@ -25,7 +25,6 @@ class Course(db.Model):
     assignments = relationship("Assignment")
 
 
-    
 # class Customer(db.Model):
 #     id = mapped_column(Integer, primary_key=True)
 #     name = mapped_column(String(200), nullable=False, unique=True)
