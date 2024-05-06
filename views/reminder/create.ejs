@@ -1,0 +1,24 @@
+<div class="container">
+  <form action="/reminder" method="POST">
+    <div class="form-group">
+      <label for="title">Course</label>
+      <input type="text" class="form-control" id="titleInput" placeholder="ACIT2911" name="title">
+    </div>
+    <div class="form-group">
+      <label for="type">Assignment Type</label>
+      <select class="form-control" id="typeInput" name="type">
+        <option value="lab">Lab</option>
+        <option value="quiz">Quiz</option>
+        <option value="project">Project</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="description">Assignment Description</label>
+      <textarea class="form-control" id="descriptionInput" rows="3" placeholder="Description" name="description"></textarea>
+    </div>
+    <div class="form-group">
+      <label for="duedate">Due Date</label>
+      <input type="date" class="form-control" id="duedate" placeholder="Due Date" name="duedate">
+    <button type="submit" class="btn btn-default">Submit</button>
+  </form>
+</div>

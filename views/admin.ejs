@@ -1,0 +1,13 @@
+<h1 class="mt-4">Admin Dashboard</h1>
+<p class="lead mb-3">Welcome <%= user.name %></p>
+<% Object.keys(sessions).forEach(sessionId => { %>
+    <p>Current Active Sessions: </p>
+    <p>Session ID: <%= sessionId %></p>
+    <p>User ID: <%= sessions[sessionId].passport.user %></p>
+    <% if (Object.keys(sessions).length == 1) { %>
+     <button onclick="window.location.href='/admin/destroy/<%= sessionId %>'" disabled>Revoke Session</button>
+    <% } else { %>
+        <button onclick="window.location.href='/admin/destroy/<%= sessionId %>'">Revoke Session</button>
+    <% } %>
+<% }) %>
+
