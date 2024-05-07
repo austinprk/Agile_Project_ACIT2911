@@ -4,6 +4,7 @@ const path = require("path");
 const ejsLayouts = require("express-ejs-layouts");
 const session = require("express-session");
 const passport = require("./middleware/passport");
+const calendar_controller = require("./controller/calendar_controller");
 const reminderController = require("./controller/reminder_controller");
 const authController = require("./controller/auth_controller");
 const { ensureAuthenticated, forwardAuthenticated, isAdmin } = require("./middleware/checkAuth");
@@ -38,10 +39,7 @@ app.post("/reminder/", reminderController.create);
 app.post("/reminder/update/:id", reminderController.update);
 app.post("/reminder/delete/:id", reminderController.delete);
 
-app.get("/scheduler", (req, res) => {
-  res.render("scheduler");
-}
-);
+app.get("/calendar", ensureAuthenticated, calendar_controller.list);
 
 app.get("/login", forwardAuthenticated, (req, res) => {
   res.render("auth/login", { hideNavbar: true });

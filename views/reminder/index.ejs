@@ -1,12 +1,13 @@
 <div class="container">
 
+<br>
 <ul class="list-group">
   <% reminders.forEach(function (reminderItem) { %>
     <li class="list-group-item square-box">
       <strong><%= reminderItem.title %>: </strong>
-      ||<%= reminderItem.type %>
+      || <%= reminderItem.type %>
       || Due Date: <%= reminderItem.duedate %>
-      ||<%= reminderItem.description %>
+      || <%= reminderItem.description %>
       || Completed:
       <% if (reminderItem.completed == true) { %>
         <span class="badge badge-success">True</span>

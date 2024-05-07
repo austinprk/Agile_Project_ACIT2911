@@ -13,6 +13,14 @@ let database = [
             duedate : "2024-12-01",
             completed: false,
         },
+        {
+            id: 2,
+            title: "ACIT2520",
+            type : "Lab",
+            description: "Lab 5 due date",
+            duedate : "2024-05-23",
+            completed: false,
+        }
       ],
       role: "admin",
   },
@@ -21,7 +29,9 @@ let database = [
       name: "Johnny Doe",
       email: "johnny123@gmail.com",
       password: "johnny123!",
-      reminders: [],
+      reminders: [
+        
+      ],
       role:"user",
   },
   {
