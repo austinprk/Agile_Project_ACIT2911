@@ -82,6 +82,78 @@
           </div>
         </div>
       </div>
+
+
+
+
+      <!DOCTYPE html>
+      <html lang="en">
+      <head>
+          <meta charset="UTF-8">
+          <meta name="viewport" content="width=device-width, initial-scale=1.0">
+          <title>Task Details</title>
+          <link rel="stylesheet" href="styles.css">
+      </head>
+      <body>
+      
+      <button type="button" class="btn btn-primary" id="show">open popup</button>
+      
+      <div class="background">
+          <div class="window">
+              <div class="popup">
+                  <h2>Task Details</h2>
+                  <form action="#">
+                      <label for="priority">Priority:</label><br>
+                      <input type="checkbox" id="priority1" name="priority" value="1">
+                      <label for="priority1">★</label>
+                      <input type="checkbox" id="priority2" name="priority" value="2">
+                      <label for="priority2">★★</label>
+                      <input type="checkbox" id="priority3" name="priority" value="3">
+                      <label for="priority3">★★★</label><br><br>
+      
+                      <label for="course">Course:</label><br>
+                      <select id="course" name="course">
+                          <option value="math">Math</option>
+                          <option value="science">Science</option>
+                          <option value="history">History</option>
+                          <!-- Add more options as needed -->
+                      </select><br><br>
+      
+                      <label for="dueBefore">Due Before:</label><br>
+                      <input type="date" id="dueBefore" name="dueBefore"><br><br>
+      
+                      <label for="tag">Tag:</label><br>
+                      <input type="text" id="tag" name="tag" placeholder="Enter tags with #"><br><br>
+      
+                      <input type="submit" value="Submit">
+                  </form>
+              </div>
+          </div>
+      </div>
+      
+      <script>
+          function show() {
+              document.querySelector(".background").className = "background show";
+          }
+      
+          function close() {
+              document.querySelector(".background").className = "background";
+          }
+      
+          function update() {
+              document.querySelector(".background").className = "background";
+              // update dealing add
+          }
+      
+          document.querySelector("#show").addEventListener("click", show);
+          document.querySelector("#close").addEventListener("click", close);
+          document.querySelector("#update").addEventListener("click", update);
+      </script>
+      
+      </body>
+      </html>
+      
+
     </section>
 
     <!-- Image Showcases -->
