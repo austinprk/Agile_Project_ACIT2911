@@ -15,7 +15,7 @@
   "license": "ISC",
   "homepage": "http",
   "dependencies": {
-    "ejs": "^3.1.9",
+    "ejs": "^3.1.10",
     "express": "^4.19.2",
     "express-ejs-layouts": "^2.2.0",
     "express-session": "^1.18.0",
