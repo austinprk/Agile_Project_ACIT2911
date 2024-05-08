@@ -1,5 +1,4 @@
 const userModel = require("../models/userModel");
-let { database } = require("../database");
 
 const findOrCreate = (profile) => {
   let githubUser = userModel.GitCheck({id: profile.id});

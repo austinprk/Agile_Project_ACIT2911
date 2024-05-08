@@ -11,7 +11,9 @@ let database = [
             type : "Project",
             description: "Agile project presentation",
             duedate : "2024-12-01",
+            tag : "#Agile #Project",
             completed: false,
+            priority: "",
         },
         {
             id: 2,
@@ -19,7 +21,9 @@ let database = [
             type : "Lab",
             description: "Lab 5 due date",
             duedate : "2024-05-23",
+            tag : "#Lab #ACIT2520",
             completed: false,
+            priority: "",
         }
       ],
       role: "admin",

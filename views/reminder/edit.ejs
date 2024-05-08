@@ -17,6 +17,9 @@
       <textarea class="form-control" id="descriptionInput" rows="3" placeholder="Description" name="description"><%= reminderItem.description %></textarea>
     </div>
     <div class="form-group">
+      <label for="tag">Tag</label>
+      <input type="text" class="form-control" id="tag" placeholder="Tag" name="tag" value="<%= reminderItem.tag %>">
+    <div class="form-group">
       <label for="duedate">Due Date</label>
       <input type="date" class="form-control" id="duedate" placeholder="Due Date" name="duedate" value="<%= reminderItem.dueDate %>">
     <div class="form-group">

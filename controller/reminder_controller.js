@@ -35,7 +35,9 @@ let remindersController = {
       type : req.body.type,
       description: req.body.description,
       duedate : req.body.duedate,
+      tag : req.body.tag,
       completed: false,
+      priority : req.body.priority
     };
     user.reminders.push(reminder);
     res.redirect("/reminders");
@@ -60,7 +62,9 @@ let remindersController = {
     searchResult.type = req.body.type;
     searchResult.description = req.body.description;
     searchResult.duedate = req.body.duedate;
+    searchResult.tag = req.body.tag;
     searchResult.completed = req.body.completed;
+    searchResult.priority = req.body.priority;
     res.redirect("/reminders");
 
   },

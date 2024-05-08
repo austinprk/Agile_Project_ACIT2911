@@ -30,6 +30,7 @@ app.use(
 
 app.use(passport.initialize());
 app.use(passport.session());
+
 app.get("/reminders", ensureAuthenticated,reminderController.list);
 app.get("/reminder/new", reminderController.new);
 app.get("/reminder/:id", reminderController.listOne);
@@ -41,6 +42,8 @@ app.post("/reminder/delete/:id", reminderController.delete);
 
 app.get("/calendar", ensureAuthenticated, calendar_controller.list);
 
+
+
 app.get("/login", forwardAuthenticated, (req, res) => {
   res.render("auth/login", { hideNavbar: true });
 });
@@ -51,8 +54,9 @@ app.post("/login", passport.authenticate("local", {
   failureRedirect: "/login",
 }));
 
-app.get("/register", authController.register);
-app.post("/register", authController.registerSubmit);
+
+// app.get("/register", authController.register);
+// app.post("/register", authController.registerSubmit);
 
 
 app.get("/logout", (req, res) => {
@@ -63,12 +67,12 @@ app.get("/logout", (req, res) => {
 });
 
 
-app.get('/github', passport.authenticate('github', {scope: ['user:email']}));
+// app.get('/github', passport.authenticate('github', {scope: ['user:email']}));
 
-app.get('/github/callback', passport.authenticate('github', { failureRedirect: 'auth/login' }),
-  function(req, res) {
-    res.redirect('/reminders');
-  });
+// app.get('/github/callback', passport.authenticate('github', { failureRedirect: 'auth/login' }),
+//   function(req, res) {
+//     res.redirect('/reminders');
+//   });
 
 
 
@@ -93,7 +97,6 @@ app.get("/admin/destroy/:sessionId", isAdmin, (req, res) => {
     }
   });
 });
-
 
 
 app.listen(3001, function () {
