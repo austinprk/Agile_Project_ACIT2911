@@ -1,127 +1,58 @@
-.deleteForm {
-  display: inline-block;
+header{
+  display: grid;
+  grid-template-columns: 20% 20% 20% 20% 20%; /* setting number of columns and their sizes in pixels/percentages */
+  /* grid-column-gap: 50px; space between each column */
+  grid-template-rows: 50px 50px; /* setting the number of rows and sizes */
+  grid-row-gap: 50px; /* space between each row  */
+  grid-auto-flow: column; /* choose column or row and then determines the order of where the content fills the grid */
+  /* justify-content: center; aligns the content inside the grid vertically */
+  /* align-items: center; aligns the content inside the grid horizontly */
 }
 
-body {
-  font-family: 'Lato', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+#dashboard {
+  justify-self: center;
+  grid-column: 3; /* select which column it'll be in */
+  grid-row: 2;  /* select which row it'll be in */
 }
 
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  font-family: 'Lato', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-  font-weight: 700;
+#nav1{
+  grid-column: 5;
+  grid-row: 1;
 }
 
-header.masthead {
-  position: relative;
-  background-color: #fff;
-  background: url("https://image.freepik.com/free-vector/reading-list-concept-illustration_114360-1005.jpg") no-repeat right center/contain;
-  padding-top: 8rem;
-  padding-bottom: 8rem;
+#nav1 ul{
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  padding: 10px;
+  gap: 15px;
+  text-align: right;
+  justify-content: right;
+;
+  
 }
 
-header.masthead .overlay {
-  position: absolute;
-  background-color: #212529;
-  height: 100%;
+#urgent-assignments {
+  display: flex;
+  grid-template-columns: 33% 33% 33%; /* setting number of columns and their sizes in pixels/percentages */
+  grid-column-gap: 10px; /* space between each column */
+  grid-auto-flow: column;
+  padding: 20px;
   width: 100%;
-  top: 0;
-  left: 0;
-  opacity: 0.2;
+  justify-content: center;
+
 }
 
-header.masthead h1 {
-  font-size: 2rem;
+#urgent-assignments p {
+  margin: 0%;
+  text-align: center;
+  font-weight: bold;
 }
 
-@media (min-width: 768px) {
-  header.masthead {
-    padding-top: 12rem;
-    padding-bottom: 12rem;
-  }
-  header.masthead h1 {
-    font-size: 3rem;
-  }
-}
+#urgent-assignments div {
+  background-color: lightgrey;
+  padding: 20px 0px 20px 0px;
+  margin: 50px;
+  width: 300px;
 
-.showcase .showcase-text {
-  padding: 3rem;
-}
-
-.showcase .showcase-img {
-  min-height: 30rem;
-  background-size: cover;
-}
-
-@media (min-width: 768px) {
-  .showcase .showcase-text {
-    padding: 7rem;
-  }
-}
-
-.features-icons {
-  padding-top: 7rem;
-  padding-bottom: 7rem;
-}
-
-.features-icons .features-icons-item {
-  max-width: 20rem;
-}
-
-.features-icons .features-icons-item .features-icons-icon {
-  height: 7rem;
-}
-
-.features-icons .features-icons-item .features-icons-icon i {
-  font-size: 4.5rem;
-}
-
-.features-icons .features-icons-item:hover .features-icons-icon i {
-  font-size: 5rem;
-}
-
-.testimonials {
-  padding-top: 7rem;
-  padding-bottom: 7rem;
-}
-
-.testimonials .testimonial-item {
-  max-width: 18rem;
-}
-
-.testimonials .testimonial-item img {
-  max-width: 12rem;
-  box-shadow: 0px 5px 5px 0px #adb5bd;
-}
-
-.call-to-action {
-  position: relative;
-  background-color: #343a40;
-  background: url("./img/bg-masthead.jpg") no-repeat center center/cover;
-  padding-top: 7rem;
-  padding-bottom: 7rem;
-}
-
-.call-to-action .overlay {
-  position: absolute;
-  background-color: #212529;
-  height: 100%;
-  width: 100%;
-  top: 0;
-  left: 0;
-  opacity: 0.3;
-}
-
-footer.footer {
-  padding-top: 4rem;
-  padding-bottom: 4rem;
-}
-
-.form-signin .checkbox {
-  margin-bottom: 10px;
-  margin-top: 10px;
 }
