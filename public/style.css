@@ -1,9 +1,9 @@
 header{
+  margin: 5px;
   display: grid;
-  grid-template-columns: 20% 20% 20% 20% 20%; /* setting number of columns and their sizes in pixels/percentages */
+  grid-template-columns: 20% 20% 10% 10% 40%; /* setting number of columns and their sizes in pixels/percentages */
   /* grid-column-gap: 50px; space between each column */
-  grid-template-rows: 50px 50px; /* setting the number of rows and sizes */
-  grid-row-gap: 50px; /* space between each row  */
+  grid-template-rows: 50px 50p 50px; /* setting the number of rows and sizes */ /* space between each row  */
   grid-auto-flow: column; /* choose column or row and then determines the order of where the content fills the grid */
   /* justify-content: center; aligns the content inside the grid vertically */
   /* align-items: center; aligns the content inside the grid horizontly */
@@ -11,10 +11,13 @@ header{
 
 #dashboard {
   justify-self: center;
-  grid-column: 3; /* select which column it'll be in */
-  grid-row: 2;  /* select which row it'll be in */
+  grid-column: 3/span 2; /* select which column it'll be in */
+  grid-row: 3;  /* select which row it'll be in */
 }
 
+#clock{
+  grid-row: 2;
+}
 #nav1{
   grid-column: 5;
   grid-row: 1;
@@ -28,8 +31,11 @@ header{
   gap: 15px;
   text-align: right;
   justify-content: right;
-;
-  
+}
+
+#nav1 li a {
+  color: black;
+  text-decoration: none;
 }
 
 #urgent-assignments {
