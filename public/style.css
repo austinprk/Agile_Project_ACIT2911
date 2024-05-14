@@ -1,4 +1,10 @@
-header{
+
+body {
+  font-family: Helvetica;
+  background-color: whitesmoke;
+}
+
+header {
   margin: 5px;
   display: grid;
   grid-template-columns: 20% 20% 10% 10% 40%; /* setting number of columns and their sizes in pixels/percentages */
