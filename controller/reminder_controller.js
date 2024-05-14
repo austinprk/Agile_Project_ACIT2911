@@ -1,13 +1,10 @@
 let  { database } = require("../database");
 
-
 let remindersController = {
-  isLoggedIn:(req,res) => {
-    return req.isAuthenticated();
-  },
+
   list: (req, res) => {
-    let user = database.find((user) => user.name === req.user.name);
-    res.render("reminder/index", { reminders: user.reminders, isLoggedIn:remindersController.isLoggedIn});
+    let reminders = database.reminders;
+    res.render("reminder/index", { reminders });
   },
 
   new: (req, res) => {
@@ -15,47 +12,43 @@ let remindersController = {
   },
 
   listOne: (req, res) => {
-    let user = database.find((user) => user.name === req.user.name);
     let reminderToFind = req.params.id;
-    let searchResult = user.reminders.find(function (reminder) {
+    let searchResult = database.reminders.find(function (reminder) {
       return reminder.id == reminderToFind;
     });
     if (searchResult != undefined) {
       res.render("reminder/single-reminder", { reminderItem: searchResult });
     } else {
-      res.render("reminder/index", { reminders: user.reminders });
+      res.render("reminder/index", { reminders: database.reminders });
     }
   },
 
   create: (req, res) => {
-    let user = database.find((user) => user.name === req.user.name);
     let reminder = {
-      id: user.reminders.length + 1,
+      id: database.reminders.length + 1,
       title: req.body.title,
-      type : req.body.type,
+      type: req.body.type,
       description: req.body.description,
-      duedate : req.body.duedate,
-      tag : req.body.tag,
+      duedate: req.body.duedate,
+      tag: req.body.tag,
       completed: false,
-      priority : req.body.priority
+      priority: req.body.priority
     };
-    user.reminders.push(reminder);
+    database.reminders.push(reminder);
     res.redirect("/reminders");
   },
 
   edit: (req, res) => {
-    let user = database.find((user) => user.name === req.user.name);
     let reminderToFind = req.params.id;
-    let searchResult = user.reminders.find(function (reminder) {
+    let searchResult = database.reminders.find(function (reminder) {
       return reminder.id == reminderToFind;
     });
     res.render("reminder/edit", { reminderItem: searchResult });
   },
 
   update: (req, res) => {
-    let user = database.find((user) => user.name === req.user.name);
     let reminderToFind = req.params.id;
-    let searchResult = user.reminders.find(function (reminder) {
+    let searchResult = database.reminders.find(function (reminder) {
       return reminder.id == reminderToFind;
     });
     searchResult.title = req.body.title;
@@ -66,16 +59,17 @@ let remindersController = {
     searchResult.completed = req.body.completed;
     searchResult.priority = req.body.priority;
     res.redirect("/reminders");
-
   },
 
   delete: (req, res) => {
-    let user = database.find((user) => user.name === req.user.name);
     let reminderToFind = req.params.id;
-    let searchResult = user.reminders.find(function (reminder) {
+    let searchResult = database.reminders.find(function (reminder) {
       return reminder.id == reminderToFind;
     });
-    user.reminders.pop(searchResult);
+    let index = database.reminders.indexOf(searchResult);
+    if (index > -1) {
+      database.reminders.splice(index, 1);
+    }
     res.redirect("/reminders");
   },
 };

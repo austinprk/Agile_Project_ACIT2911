@@ -1,3 +1,18 @@
+<header class="header">
+  <nav id="nav1">
+
+      <ul>
+          <li><a href="/reminders">Dashboard</a></li>
+          <li><a href="/calendar">Calendar</a></li>
+          <li><a href="/reminder/new">Create</a></li>
+          <li><a href="#">Delete</a></li>
+          <li><a href="#">Modify</a></li>
+      </ul>
+  </nav>
+
+</header>
+
+
 <div class="container">
   <br>
   <input type="text" id="searchInput" placeholder="Search assignments...">
@@ -45,9 +60,9 @@
     var reminders = document.getElementsByClassName("list-group-item");
     var remindersArray = Array.from(reminders);
     remindersArray.sort(function(a, b) {
-      var dueDateA = new Date(a.querySelector(".duedate").textContent);
-      var dueDateB = new Date(b.querySelector(".duedate").textContent);
-      return dueDateA - dueDateB;
+      var dueDate1 = new Date(a.querySelector(".duedate").textContent);
+      var dueDate2 = new Date(b.querySelector(".duedate").textContent);
+      return dueDateA1 - dueDate2;
     });
     var list = document.querySelector(".list-group");
     list.innerHTML = "";
