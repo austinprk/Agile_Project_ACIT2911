@@ -19,6 +19,17 @@ let database = {
             tag: "#Lab #ACIT2520",
             completed: false,
             priority: "",
+        },
+        {
+            id: 3,
+            title: "ACIT4770",
+            type: "Assignment",
+            description: "Assignment 2 due date",
+            duedate: "2024-05-15",
+            tag: "#Assignment #ACIT4770",
+            completed: false,
+            priority: "",
+            
         }
     ]
 };

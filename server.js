@@ -4,6 +4,7 @@ const path = require("path");
 const ejsLayouts = require("express-ejs-layouts");
 const calendar_controller = require("./controller/calendar_controller");
 const reminderController = require("./controller/reminder_controller");
+const home_reminder = require("./controller/home_reminders");
 
 app.use(express.static(path.join(__dirname, "public")));
 app.use(express.urlencoded({ extended: false }));
@@ -12,10 +13,8 @@ app.use(ejsLayouts);
 
 app.set("view engine", "ejs");
 
-app.get("/", (req, res) => {
-  res.render("home");
-}
-);
+app.get("/", home_reminder.list);
+
 app.get("/reminders", reminderController.list);
 app.get("/reminder/new", reminderController.new);
 app.get("/reminder/:id", reminderController.listOne);

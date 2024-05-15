@@ -32,36 +32,40 @@
         <h2>URGENT Assignments</h2>
 
     <div id="urgent-assignments">
-        <div>
-            <p>Title</p>
-            <p>Priority</p>
-            <p>Due Date</p>
-            <p>Description</p>
-            <p>Status</p>
-        </div>
-        <div>
-            <p>Title</p>
-            <p>Priority</p>
-            <p>Due Date</p>
-            <p>Description</p>
-            <p>Status</p>
-        </div>
-        <div>
-            <p>Title</p>
-            <p>Priority</p>
-            <p>Due Date</p>
-            <p>Description</p>
-            <p>Status</p>
-        </div>
-    </div>
+        <% reminders.forEach(function (reminderItem) { %>
+            <% var currentDate = new Date(); %>
+            <% var dueDate = new Date(reminderItem.duedate); %>
+            <% var dateDiff = dueDate.getTime() - currentDate.getTime(); %>
+            <% var oneDay = 24 * 60 * 60 * 1000; %> 
+            <div class="priority-box">
+            <p>Title: <%= reminderItem.title %></p>
+            <p>Type: <%= reminderItem.type %></p>
+            <p>Due Date: <%= reminderItem.duedate %></p>
+            <p>Description: <%= reminderItem.description %></p>
 
-<div>
+            <% if (dateDiff <= 2 * oneDay) { %>
+                <p> Priority: Urgent </p>
+            <% } else if (dateDiff > 2 * oneDay && dateDiff <= 4 * oneDay) { %>
+                <p> Priority: High </p>
+            <% } else if (dateDiff > 4 * oneDay && dateDiff <= 6 * oneDay) { %>
+                <p> Priority: Medium </p>
+            <% } else if (dateDiff > 6 * oneDay) { %>
+                <p> Priority: Low </p>
+            <% } %>
+
+            <p>Status: 
+                <% if (reminderItem.completed == true) { %>
+                <span class="badge badge-success">Completed</span>
+                <% } else if (reminderItem.completed == false) { %>
+                <span class="badge badge-danger">Not completed</span>
+                <% } %>
+            </p>
+
+            </div>
+        <% }) %>
+        </div>
 
 </div>
-    <footer>
-        <p>Contact us: info@example.com</p>
-        <p>&copy; 2024 Dashboard Inc. All rights reserved.</p>
-    </footer>
 
 </body>
 </html>
