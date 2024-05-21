@@ -175,68 +175,80 @@
     }
   </style>
 </head>
-<body>
 <header class="header">
-  <nav>
-    <ul>
-      <li><a href="/">Home</a></li>
-      <li><a href="/calendar">Calendar</a></li>
-      <li><a href="/reminder/new">Create</a></li>
-      <li><a href="#">Delete</a></li>
-      <li><a href="#">Modify</a></li>
-    </ul>
-  </nav>
-</header>
+    <nav id="nav1">
+  
+        <ul>
+            <li><a href="/">Dashboard</a></li>
+            <li><a href="/reminders">Assignment</a></li>
+            <li><a href="/calendar">Calendar</a></li>
+            <!-- <li><a href="/reminder/new">Create</a></li>
+            <li><a href="#">Delete</a></li>
+            <li><a href="#">Modify</a></li> -->
+        </ul>
+    </nav>
+  
+  </header>
+  
+<body>
+    <div class="calendar">
+        <div class="calendar-header">
+            <button id="prevMonth">Previous</button>
+            <span id="currentMonthYear"></span>
+            <button id="nextMonth">Next</button>
+        </div>
+        
+        <div class="calendar-header">Sunday</div>
+        <div class="calendar-header">Monday</div>
+        <div class="calendar-header">Tuesday</div>
+        <div class="calendar-header">Wednesday</div>
+        <div class="calendar-header">Thursday</div>
+        <div class="calendar-header">Friday</div>
+        <div class="calendar-header">Saturday</div>
+        
+    
 
-<h1>Reminders Calendar</h1>
-<div id="monthLabel"></div>
-<button id="prevMonth">Previous Month</button>
-<button id="nextMonth">Next Month</button>
-<div id="calendar"></div>
+        <div class="calendar-day">1</div>
+        <div class="calendar-day">2</div>
+        <div class="calendar-day">3</div>
 
-<script>
-  let currentYear = new Date().getFullYear();
-  let currentMonth = new Date().getMonth() + 1;
+    </div>
 
-  function updateMonthLabel(year, month) {
-    const monthNames = ["January", "February", "March", "April", "May", "June",
-      "July", "August", "September", "October", "November", "December"];
-    const monthLabel = document.getElementById('monthLabel');
-    monthLabel.textContent = `${monthNames[month - 1]} ${year}`;
-  }
+    <% reminders.forEach(function (reminderItem) { %>
 
-  function clearCalendar() {
-    const calendarDiv = document.getElementById('calendar');
-    calendarDiv.innerHTML = '';
-  }
+        <strong><%= reminderItem.title %>: </strong>
+          <%= reminderItem.duedate %>
+    <% }) %>
+    
+ 
 
-  function generateCalendar(year, month, reminders) {
-    clearCalendar(); 
-    updateMonthLabel(year, month); 
-    const daysInMonth = new Date(year, month, 0).getDate();
-    const firstDay = new Date(year, month - 1, 1).getDay();
-    const calendarDiv = document.getElementById('calendar');
+    <script>
 
+        const prevMonthButton = document.getElementById('prevMonth');
+        const nextMonthButton = document.getElementById('nextMonth');
+        const currentMonthYear = document.getElementById('currentMonthYear');
+        
+        let currentDate = new Date();
+        
+        function updateCalendar() {
+            const monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+            const currentMonth = currentDate.getMonth();
+            const currentYear = currentDate.getFullYear();
+            
+            currentMonthYear.textContent = `${monthNames[currentMonth]} ${currentYear}`;
+            
 
-    for (let i = 0; i < firstDay; i++) {
-      const emptyDiv = document.createElement('div');
-      calendarDiv.appendChild(emptyDiv);
-    }
+            const calendarDays = document.querySelectorAll('.calendar-day');
+            calendarDays.forEach(day => day.remove());
 
+            const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
+            for (let day = 1; day <= daysInMonth; day++) {
+                const calendarDay = document.createElement('div');
+                calendarDay.classList.add('calendar-day');
+                calendarDay.textContent = day;
+                document.querySelector('.calendar').appendChild(calendarDay);
+            }
 
-    for (let day = 1; day <= daysInMonth; day++) {
-      const dayDiv = document.createElement('div');
-      dayDiv.className = 'day';
-      dayDiv.textContent = day;
-
-
-      reminders.forEach(reminder => {
-        const reminderDate = new Date(reminder.duedate);
-        if (reminderDate.getDate() + 1 === day && reminderDate.getMonth() + 1 === month && reminderDate.getFullYear() === year) {
-          const reminderElement = document.createElement('div');
-          reminderElement.className = 'reminder';
-          reminderElement.textContent = reminder.title;
-          dayDiv.appendChild(reminderElement);
         }
       });
 
