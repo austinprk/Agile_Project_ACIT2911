@@ -1,23 +1,23 @@
+<link rel="stylesheet" href="style.css">
 <header class="header">
   <nav id="nav1">
-
       <ul>
-          <li><a href="/">Home</a></li>
-          <li><a href="/calendar">Calendar</a></li>
-          <li><a href="/reminder/new">Create</a></li>
-          <li><a href="#">Delete</a></li>
-          <li><a href="#">Modify</a></li>
+        <li><a href="/">Dashboard</a></li>
+        <li><a href="/reminders">Assignment</a></li>
+        <li><a href="/calendar">Calendar</a></li>
+          <!-- <li><a href="#">Delete</a></li>
+          <li><a href="#">Modify</a></li> -->
       </ul>
   </nav>
-
 </header>
-
 
 <div class="container">
   <br>
   <input type="text" id="searchInput" placeholder="Search assignments...">
   <button onclick="sortAssignmentsByDueDate()">Sort by Due Date</button>
   <button onclick="sortAssignmentsByType()">Sort by Type</button>
+  <button onclick="sortAssignmentsByPriority()">Sort by Priority</button>
+  <button id="createBtn">Create</button>
 
   <ul class="list-group">
     <% reminders.forEach(function (reminderItem) { %>
@@ -27,7 +27,7 @@
         || Due Date: <span class="duedate"><%= reminderItem.duedate %></span>
         || <%= reminderItem.description %>
         || <%= reminderItem.tag %>
-        || 
+        || Priority: <span class="priority"><%= '★'.repeat(reminderItem.priority) %></span>
         <% if (reminderItem.completed == true) { %>
           <span class="badge badge-success">Completed</span>
         <% } else if (reminderItem.completed == false) { %>
@@ -47,13 +47,67 @@
         <% } else if (dateDiff > 6 * oneDay) { %>
           <span class="badge badge-secondary">Low</span>
         <% } %>
-
-        ||
-        <a class="pull-right" href=<%= "/reminder/" + reminderItem.id %>>View</a>
+        || <a class="pull-right" href=<%= "/reminder/" + reminderItem.id %>>View</a>
       </li>
     <% }) %>
   </ul>
 </div>
+
+<!-- create button -->
+<!-- black background shade -->
+<div class="popup-overlay" id="popupOverlay"></div>
+<div class="popup" id="popup">
+    <div class="popup-header">
+        <h2>Add an Assignment</h2>
+        <h2 class="close-btn" id="closeBtn">&times;</h2>
+    </div>
+    <div class="popup-body">
+        <div class="container">
+            <form action="/reminder" method="POST">
+              <div class="form-group-assignment-name">
+                <label for="title">Title</label>
+                <input type="text" class="form-control" id="titleInput" placeholder="Title" name="title">
+            </div>
+                <div class="form-group">
+                    <label for="title">Course</label>
+                    <input type="text" class="form-control" id="titleInput" placeholder="ACIT2911" name="title">
+                </div>
+                <div class="form-group">
+                    <label for="type">Assignment Type</label>
+                    <select class="form-control" id="typeInput" name="type">
+                        <option value="Lab">Lab</option>
+                        <option value="Quiz">Quiz</option>
+                        <option value="Project">Project</option>
+                    </select>
+                </div>
+                <div class="form-group priority-container">
+                  <label class="priority-label" for="priority">Priority</label>
+                  <div class="priority-checkbox">
+                      <label><input type="radio" name="priority" value="1"> ★</label>
+                      <label><input type="radio" name="priority" value="2"> ★★</label>
+                      <label><input type="radio" name="priority" value="3"> ★★★</label>
+                  </div>
+              </div>
+                <div class="form-group">
+                    <label for="description">Assignment Description</label>
+                    <textarea class="form-control" id="descriptionInput" rows="3" placeholder="Description" name="description"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="duedate">Due Date</label>
+                    <input type="date" class="form-control" id="duedate" placeholder="Due Date" name="duedate">
+                </div>
+                <div class="form-group">
+                    <label for="tag">Tag</label>
+                    <input type="text" class="form-control" id="tag" placeholder="#Tag" name="tag">
+                </div>
+                <div class="submit-container">
+                    <button type="submit" class="btn">Submit</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
 
 <script>
   function sortAssignmentsByDueDate() {
@@ -62,7 +116,7 @@
     remindersArray.sort(function(a, b) {
       var dueDate1 = new Date(a.querySelector(".duedate").textContent);
       var dueDate2 = new Date(b.querySelector(".duedate").textContent);
-      return dueDateA1 - dueDate2;
+      return dueDate1 - dueDate2;
     });
     var list = document.querySelector(".list-group");
     list.innerHTML = "";
@@ -85,26 +139,71 @@
       list.appendChild(reminder);
     });
   }
-
-  function searchAssignments() {
-    var input, filter, ul, li, a, i, txtValue;
-    input = document.getElementById('searchInput');
-    filter = input.value.toUpperCase();
-    ul = document.querySelector('.list-group');
-    li = ul.getElementsByTagName('li');
-    for (i = 0; i < li.length; i++) {
-      a = li[i].getElementsByTagName("strong")[0];
-      txtValue = a.textContent || a.innerText;
-      if (txtValue.toUpperCase().indexOf(filter) > -1) {
-        li[i].style.display = "";
-      } else {
-        li[i].style.display = "none";
-      }
-    }
+  
+  
+  // sort by priority
+  function sortAssignmentsByPriority() {
+    var reminders = document.getElementsByClassName("list-group-item");
+    var remindersArray = Array.from(reminders);
+    remindersArray.sort(function(a, b) {
+      var priorityA = a.querySelector(".priority").textContent.length;
+      var priorityB = b.querySelector(".priority").textContent.length;
+      return priorityB - priorityA;
+    });
+    var list = document.querySelector(".list-group");
+    list.innerHTML = "";
+    remindersArray.forEach(function(reminder) {
+      list.appendChild(reminder);
+    });
   }
 
-  document.getElementById("searchInput").addEventListener("keyup", searchAssignments);
+  function searchAssignments() {
+  var input, filter, ul, li, txtValue;
+  input = document.getElementById('searchInput');
+  filter = input.value.toUpperCase();
+  ul = document.querySelector('.list-group');
+  li = ul.getElementsByTagName('li');
+  for (var i = 0; i < li.length; i++) {
+    txtValue = li[i].textContent || li[i].innerText; // all text from the list
+    if (txtValue.toUpperCase().indexOf(filter) > -1) {
+      li[i].style.display = "";
+    } else {
+      li[i].style.display = "none";
+    }
+  }
+}
 
-  
+document.getElementById("searchInput").addEventListener("keyup", searchAssignments);
+
   sortAssignmentsByDueDate();
+
+// create button
+
+document.addEventListener('DOMContentLoaded', function() {
+        const createBtn = document.getElementById('createBtn');
+        const popup = document.getElementById('popup');
+        const popupOverlay = document.getElementById('popupOverlay');
+        const closeBtn = document.getElementById('closeBtn');
+
+        createBtn.addEventListener('click', function() {
+            popup.style.display = 'block';
+            popupOverlay.style.display = 'block';
+        });
+
+        closeBtn.addEventListener('click', function() {
+            popup.style.display = 'none';
+            popupOverlay.style.display = 'none';
+        });
+
+        popupOverlay.addEventListener('click', function() {
+            popup.style.display = 'none';
+            popupOverlay.style.display = 'none';
+        });
+
+        // hide popup at the beginning
+        popup.style.display = 'none';
+        popupOverlay.style.display = 'none';
+    });
+
+
 </script>
