@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard/Main Page</title>
+    <link rel="stylesheet" href="style.css">
+   
+</head>
+<body>
+    <header class="header">
+        <h1 id="header-title">ParkYourAssignment</h1>
+        <nav id="nav1">
+
+            <ul>
+                <li><a href="/reminders">Dashboard</a></li>
+                <li><a href="/calendar">Calendar</a></li>
+                <li><a href="/reminder/new">Create</a></li>
+                <li><a href="#">Delete</a></li>
+                <li><a href="#">Modify</a></li>
+            </ul>
+        </nav>
+
+        <h1 id="dashboard">Dashboard</h1>
+        <div id="clock">
+
+            <iframe scrolling="no" frameborder="no" clocktype="html5" style="overflow:hidden;border:0;margin:0;padding:0;width:151px;height:50px;"src="https://www.clocklink.com/html5embed.php?clock=008&timezone=Canada_Vancouver&color=black&size=151&Title=&Message=&Target=&From=2024,1,1,0,0,0&Color=black"></iframe>
+
+        </div>
+    </header>
+
+        <h2>URGENT Assignments</h2>
+
+    <div id="urgent-assignments">
+        <% reminders.forEach(function (reminderItem) { %>
+            <% var currentDate = new Date(); %>
+            <% var dueDate = new Date(reminderItem.duedate); %>
+            <% var dateDiff = dueDate.getTime() - currentDate.getTime(); %>
+            <% var oneDay = 24 * 60 * 60 * 1000; %> 
+            <div class="priority-box">
+            <p>Title: <%= reminderItem.title %></p>
+            <p>Type: <%= reminderItem.type %></p>
+            <p>Due Date: <%= reminderItem.duedate %></p>
+            <p>Description: <%= reminderItem.description %></p>
+
+            <% if (dateDiff <= 2 * oneDay) { %>
+                <p> Priority: Urgent </p>
+            <% } else if (dateDiff > 2 * oneDay && dateDiff <= 4 * oneDay) { %>
+                <p> Priority: High </p>
+            <% } else if (dateDiff > 4 * oneDay && dateDiff <= 6 * oneDay) { %>
+                <p> Priority: Medium </p>
+            <% } else if (dateDiff > 6 * oneDay) { %>
+                <p> Priority: Low </p>
+            <% } %>
+
+            <p>Status: 
+                <% if (reminderItem.completed == true) { %>
+                <span class="badge badge-success">Completed</span>
+                <% } else if (reminderItem.completed == false) { %>
+                <span class="badge badge-danger">Not completed</span>
+                <% } %>
+            </p>
+
+            </div>
+        <% }) %>
+        </div>
+
+</div>
+
+</body>
+</html>
+

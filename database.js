@@ -1,59 +1,37 @@
-let database = [
-  {
-      id: 1,
-      name: "Cindy Park",
-      email: "cindy123@gmail.com",
-      password: "cindy123!",
-      reminders: [
+let database = {
+    reminders: [
         {
             id: 1,
             title: "ACIT2911",
-            type : "Project",
+            type: "Project",
             description: "Agile project presentation",
-            duedate : "2024-12-01",
-            tag : "#Agile #Project",
+            duedate: "2024-12-01",
+            tag: "#Agile #Project",
             completed: false,
             priority: "",
         },
         {
             id: 2,
             title: "ACIT2520",
-            type : "Lab",
+            type: "Lab",
             description: "Lab 5 due date",
-            duedate : "2024-05-23",
-            tag : "#Lab #ACIT2520",
+            duedate: "2024-05-23",
+            tag: "#Lab #ACIT2520",
             completed: false,
             priority: "",
-        }
-      ],
-      role: "admin",
-  },
-  {
-      id: 2,
-      name: "Johnny Doe",
-      email: "johnny123@gmail.com",
-      password: "johnny123!",
-      reminders: [
-        
-      ],
-      role:"user",
-  },
-  {
-      id: 3,
-      name: "Jonathan Chen",
-      email: "jonathan123@gmail.com",
-      password: "jonathan123!",
-      reminders: [
-        {
-            id: 1,
-            title: "Test",
-            description: "Test test test",
-            theme: "test",
-            completed: false,
         },
-      ],
-      role:"user",
-  },
-  ];
-  
-  module.exports = { database };
+        {
+            id: 3,
+            title: "ACIT4770",
+            type: "Assignment",
+            description: "Assignment 2 due date",
+            duedate: "2024-05-15",
+            tag: "#Assignment #ACIT4770",
+            completed: false,
+            priority: "",
+            
+        }
+    ]
+};
+
+module.exports = { database };

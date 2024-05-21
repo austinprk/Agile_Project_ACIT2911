@@ -1,12 +1,12 @@
 let  { database } = require("../database");
 
 
-let calendar_controller = {
+let home_reminder = {
     list : (req, res) => {
         let reminders = database.reminders;
-        res.render("./calendar", { reminders });
+        res.render("./home", { reminders });
     }
 };
 
 
-module.exports = calendar_controller;
+module.exports = home_reminder;
