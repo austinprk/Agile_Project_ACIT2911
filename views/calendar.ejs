@@ -1,30 +1,179 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Calendar</title>
-    <style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calendar</title>
+  <style>
 
-        .calendar {
-            display: grid;
-            grid-template-columns: repeat(7, 1fr);
-            gap: 10px;
-        }
-        
-        .calendar-header {
-            text-align: center;
-            font-weight: bold;
-        }
-        
-        .calendar-day {
-            text-align: center;
-            border: 1px solid #ccc;
-            padding: 10px;
-        }
-        
-        .calendar-day:hover {
-            background-color: #f2f2f2;
-        }
-    </style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f2f2f2;
+      margin: 0;
+      padding: 0;
+    }
+
+    .header {
+      background-color: #333;
+      color: #fff;
+      padding: 10px;
+    }
+
+    .header ul {
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    .header ul li {
+      display: inline-block;
+      margin-right: 10px;
+    }
+
+    .header ul li a {
+      color: #fff;
+      text-decoration: none;
+      padding: 5px;
+    }
+
+    h1 {
+      color: #333;
+      margin-top: 20px;
+    }
+
+    .container {
+      margin: 20px;
+      background-color: #fff;
+      padding: 20px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    .search-container {
+      margin-bottom: 10px;
+    }
+
+    .search-container input[type="text"] {
+      padding: 5px;
+      width: 200px;
+    }
+
+    .sort-buttons {
+      margin-bottom: 10px;
+    }
+
+    .sort-buttons button {
+      padding: 5px 10px;
+      margin-right: 10px;
+      background-color: #333;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .sort-buttons button:hover {
+      background-color: #555;
+    }
+
+    .list-group-item {
+      background-color: #f9f9f9;
+      border: 1px solid #ccc;
+      padding: 10px;
+      margin-bottom: 10px;
+      border-radius: 5px;
+    }
+
+    .list-group-item strong {
+      font-weight: bold;
+      color: #333;
+    }
+
+    .badge {
+      padding: 5px;
+      margin-right: 5px;
+      border-radius: 5px;
+    }
+
+    .badge-success {
+      background-color: green;
+      color: #fff;
+    }
+
+    .badge-danger {
+      background-color: red;
+      color: #fff;
+    }
+
+    .badge-warning {
+      background-color: orange;
+      color: #fff;
+    }
+
+    .badge-info {
+      background-color: blue;
+      color: #fff;
+    }
+
+    .badge-secondary {
+      background-color: gray;
+      color: #fff;
+    }
+
+    .pull-right {
+      float: right;
+    }
+
+    #calendar {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 10px;
+    }
+
+    .day {
+      padding: 10px;
+      border: 1px solid #ccc;
+      position: relative; 
+      background-color: #fff;
+      transition: background-color 0.3s ease;
+      cursor: pointer;
+    }
+
+    .day:hover {
+      background-color: #f2f2f2;
+    }
+
+    .reminder {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      background: yellow;
+      width: 100%;
+      font-size: 12px;
+    }
+
+    button {
+      margin: 10px;
+      padding: 5px 10px;
+      font-size: 16px;
+      background-color: #333;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #555;
+    }
+
+    #monthLabel {
+      font-size: 24px;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+  </style>
 </head>
 <header class="header">
     <nav id="nav1">
@@ -99,21 +248,36 @@
                 calendarDay.textContent = day;
                 document.querySelector('.calendar').appendChild(calendarDay);
             }
+
         }
-        
-        prevMonthButton.addEventListener('click', () => {
-            currentDate.setMonth(currentDate.getMonth() - 1);
-            updateCalendar();
-        });
-        
-        nextMonthButton.addEventListener('click', () => {
-            currentDate.setMonth(currentDate.getMonth() + 1);
-            updateCalendar();
-        });
-        
-        updateCalendar();
-    </script>
+      });
 
+      calendarDiv.appendChild(dayDiv);
+    }
+  }
 
+  document.getElementById('prevMonth').addEventListener('click', function () {
+    if (currentMonth === 1) {
+      currentMonth = 12;
+      currentYear--;
+    } else {
+      currentMonth--;
+    }
+    generateCalendar(currentYear, currentMonth, reminders);
+  });
+
+  document.getElementById('nextMonth').addEventListener('click', function () {
+    if (currentMonth === 12) {
+      currentMonth = 1;
+      currentYear++;
+    } else {
+      currentMonth++;
+    }
+    generateCalendar(currentYear, currentMonth, reminders);
+  });
+
+  const reminders = <%- JSON.stringify(reminders) %>;
+  generateCalendar(currentYear, currentMonth, reminders);
+</script>
 </body>
 </html>
