@@ -43,13 +43,13 @@
             <p>Due Date: <%= reminderItem.duedate %></p>
             <p>Description: <%= reminderItem.description %></p>
 
-            <% if (dateDiff <= 2 * oneDay) { %>
+            <% if (dateDiff <= 4 * oneDay) { %>
                 <p> Priority: Urgent </p>
-            <% } else if (dateDiff > 2 * oneDay && dateDiff <= 4 * oneDay) { %>
+            <% } else if (dateDiff > 4 * oneDay && dateDiff <= 8 * oneDay) { %>
                 <p> Priority: High </p>
-            <% } else if (dateDiff > 4 * oneDay && dateDiff <= 6 * oneDay) { %>
+            <% } else if (dateDiff > 8 * oneDay && dateDiff <= 12 * oneDay) { %>
                 <p> Priority: Medium </p>
-            <% } else if (dateDiff > 6 * oneDay) { %>
+            <% } else if (dateDiff > 12 * oneDay) { %>
                 <p> Priority: Low </p>
             <% } %>
 
@@ -69,4 +69,5 @@
 
 </body>
 </html>
+
 

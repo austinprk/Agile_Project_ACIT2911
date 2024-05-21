@@ -5,6 +5,8 @@ const ejsLayouts = require("express-ejs-layouts");
 const calendar_controller = require("./controller/calendar_controller");
 const reminderController = require("./controller/reminder_controller");
 const home_reminder = require("./controller/home_reminders");
+const assignment_sort = require("./controller/assignments_sort");
+
 
 app.use(express.static(path.join(__dirname, "public")));
 app.use(express.urlencoded({ extended: false }));
@@ -13,7 +15,7 @@ app.use(ejsLayouts);
 
 app.set("view engine", "ejs");
 
-app.get("/", home_reminder.list);
+app.get("/", home_reminder.list, assignment_sort.sortAssignmentsByDueDate, assignment_sort.sortAssignmentsByType);
 
 app.get("/reminders", reminderController.list);
 app.get("/reminder/new", reminderController.new);

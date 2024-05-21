@@ -1,92 +1,227 @@
-<header class="header">
-  <nav id="nav1">
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Reminder Page</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f2f2f2;
+      margin: 0;
+      padding: 0;
+    }
 
+    .header {
+      background-color: #333;
+      color: #fff;
+      padding: 10px;
+    }
+
+    .header ul {
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    .header ul li {
+      display: inline-block;
+      margin-right: 10px;
+    }
+
+    .header ul li a {
+      color: #fff;
+      text-decoration: none;
+      padding: 5px;
+    }
+
+    h1 {
+      color: #333;
+      margin-top: 20px;
+    }
+
+    .container {
+      margin: 20px;
+      background-color: #fff;
+      padding: 20px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    .search-container {
+      margin-bottom: 10px;
+    }
+
+    .search-container input[type="text"] {
+      padding: 5px;
+      width: 200px;
+    }
+
+    .sort-buttons {
+      margin-bottom: 10px;
+    }
+
+    .sort-buttons button {
+      padding: 5px 10px;
+      margin-right: 10px;
+      background-color: #333;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .sort-buttons button:hover {
+      background-color: #555;
+    }
+
+    .list-group-item {
+      background-color: #f9f9f9;
+      border: 1px solid #ccc;
+      padding: 10px;
+      margin-bottom: 10px;
+      border-radius: 5px;
+    }
+
+    .list-group-item strong {
+      font-weight: bold;
+      color: #333;
+    }
+
+    .badge {
+      padding: 5px;
+      margin-right: 5px;
+      border-radius: 5px;
+    }
+
+    .badge-success {
+      background-color: green;
+      color: #fff;
+    }
+
+    .badge-danger {
+      background-color: red;
+      color: #fff;
+    }
+
+    .badge-warning {
+      background-color: orange;
+      color: #fff;
+    }
+
+    .badge-info {
+      background-color: blue;
+      color: #fff;
+    }
+
+    .badge-secondary {
+      background-color: gray;
+      color: #fff;
+    }
+
+    .pull-right {
+      float: right;
+    }
+  </style>
+</head>
+<body>
+  <header class="header">
+    <nav>
       <ul>
-          <li><a href="/">Home</a></li>
-          <li><a href="/calendar">Calendar</a></li>
-          <li><a href="/reminder/new">Create</a></li>
-          <li><a href="#">Delete</a></li>
-          <li><a href="#">Modify</a></li>
+        <li><a href="/">Home</a></li>
+        <li><a href="/calendar">Calendar</a></li>
+        <li><a href="/reminder/new">Create</a></li>
+        <li><a href="#">Delete</a></li>
+        <li><a href="#">Modify</a></li>
       </ul>
-  </nav>
-
-</header>
-
-
-<div class="container">
+    </nav>
+  </header>
   <br>
-  <input type="text" id="searchInput" placeholder="Search assignments...">
-  <button onclick="sortAssignmentsByDueDate()">Sort by Due Date</button>
-  <button onclick="sortAssignmentsByType()">Sort by Type</button>
+  <h1><b>&nbsp;&nbsp;Current Assignments</b></h1>
+  
+  <div class="container">
+    <div class="search-container">
+      <input type="text" id="searchInput" placeholder="Search assignments...">
+    </div>
+    <br>
 
-  <ul class="list-group">
-    <% reminders.forEach(function (reminderItem) { %>
-      <li class="list-group-item square-box">
-        <strong><%= reminderItem.title %>: </strong>
-        || <span class="type"><%= reminderItem.type %></span>
-        || Due Date: <span class="duedate"><%= reminderItem.duedate %></span>
-        || <%= reminderItem.description %>
-        || <%= reminderItem.tag %>
-        || 
-        <% if (reminderItem.completed == true) { %>
-          <span class="badge badge-success">Completed</span>
-        <% } else if (reminderItem.completed == false) { %>
-          <span class="badge badge-danger">Not completed</span>
-        <% } %>
-        <% var currentDate = new Date(); %>
-        <% var dueDate = new Date(reminderItem.duedate); %>
-        <% var dateDiff = dueDate.getTime() - currentDate.getTime(); %>
-        <% var oneDay = 24 * 60 * 60 * 1000; %> <!-- used mileseconds for this part!!!! -->
+    <div class="sort-buttons">
+      <button onclick="sortAssignmentsByDueDate()">Sort by Due Date</button>
+      <button onclick="sortAssignmentsByType()">Sort by Type</button>
+    </div>
 
-        <% if (dateDiff <= 2 * oneDay) { %>
-          <span class="badge badge-danger">Urgent</span>
-        <% } else if (dateDiff > 2 * oneDay && dateDiff <= 4 * oneDay) { %>
-          <span class="badge badge-warning">High</span>
-        <% } else if (dateDiff > 4 * oneDay && dateDiff <= 6 * oneDay) { %>
-          <span class="badge badge-info">Medium</span>
-        <% } else if (dateDiff > 6 * oneDay) { %>
-          <span class="badge badge-secondary">Low</span>
-        <% } %>
+    <ul class="list-group">
+          <% reminders.forEach(function (reminderItem) { %>
+          <li class="list-group-item">
+          <strong><%= reminderItem.title %>: </strong>
+          <span class="type"><%= reminderItem.type %></span>
+          <br>
+          Due Date: <span class="duedate"><%= reminderItem.duedate %></span>
+          <br>
+          <%= reminderItem.description %>
+          <br>
+          <%= reminderItem.tag %>
+          <br>
+          <% if (reminderItem.completed == true) { %>
+            <span class="badge badge-success">Completed</span>
+          <% } else if (reminderItem.completed == false) { %>
+            <span class="badge badge-danger">Not completed</span>
+          <% } %>
+          <% var currentDate = new Date(); %>
+          <% var dueDate = new Date(reminderItem.duedate); %>
+          <% var dateDiff = dueDate.getTime() - currentDate.getTime(); %>
+          <% var oneDay = 24 * 60 * 60 * 1000; %>
 
-        ||
-        <a class="pull-right" href=<%= "/reminder/" + reminderItem.id %>>View</a>
-      </li>
-    <% }) %>
-  </ul>
-</div>
+          <% if (dateDiff <= 4 * oneDay) { %>
+            <span class="badge badge-danger">Urgent</span>
+          <% } else if (dateDiff > 4 * oneDay && dateDiff <= 8 * oneDay) { %>
+            <span class="badge badge-warning">High</span>
+          <% } else if (dateDiff > 8 * oneDay && dateDiff <= 12 * oneDay) { %>
+            <span class="badge badge-info">Medium</span>
+          <% } else if (dateDiff > 12 * oneDay) { %>
+            <span class="badge badge-secondary">Low</span>
+          <% } %>
 
-<script>
-  function sortAssignmentsByDueDate() {
-    var reminders = document.getElementsByClassName("list-group-item");
-    var remindersArray = Array.from(reminders);
-    remindersArray.sort(function(a, b) {
-      var dueDate1 = new Date(a.querySelector(".duedate").textContent);
-      var dueDate2 = new Date(b.querySelector(".duedate").textContent);
-      return dueDateA1 - dueDate2;
-    });
-    var list = document.querySelector(".list-group");
-    list.innerHTML = "";
-    remindersArray.forEach(function(reminder) {
-      list.appendChild(reminder);
-    });
-  }
+          <br>
+          <a class="pull-right" href=<%= "/reminder/" + reminderItem.id %>>Details</a>
+        </li>
+      <% }) %>
+    </ul>
+  </div>
 
-  function sortAssignmentsByType() {
-    var reminders = document.getElementsByClassName("list-group-item");
-    var remindersArray = Array.from(reminders);
-    remindersArray.sort(function(a, b) {
-      var typeA = a.querySelector(".type").textContent;
-      var typeB = b.querySelector(".type").textContent;
-      return typeA.localeCompare(typeB);
-    });
-    var list = document.querySelector(".list-group");
-    list.innerHTML = "";
-    remindersArray.forEach(function(reminder) {
-      list.appendChild(reminder);
-    });
-  }
+  <script>
 
-  function searchAssignments() {
+    function sortAssignmentsByDueDate() {
+        var reminders = document.getElementsByClassName("list-group-item");
+        var remindersArray = Array.from(reminders);
+        remindersArray.sort(function(a, b) {
+          var dueDate1 = new Date(a.querySelector(".duedate").textContent);
+          var dueDate2 = new Date(b.querySelector(".duedate").textContent);
+          return dueDate1 - dueDate2;
+        });
+        var list = document.querySelector(".list-group");
+        list.innerHTML = "";
+        remindersArray.forEach(function(reminder) {
+          list.appendChild(reminder);
+        });
+      }
+
+      function sortAssignmentsByType() {
+        var reminders = document.getElementsByClassName("list-group-item");
+        var remindersArray = Array.from(reminders);
+        remindersArray.sort(function(a, b) {
+          var typeA = a.querySelector(".type").textContent;
+          var typeB = b.querySelector(".type").textContent;
+          return typeA.localeCompare(typeB);
+        });
+        var list = document.querySelector(".list-group");
+        list.innerHTML = "";
+        remindersArray.forEach(function(reminder) {
+          list.appendChild(reminder);
+        });
+      }
+
+  
+
+    function searchAssignments() {
     var input, filter, ul, li, a, i, txtValue;
     input = document.getElementById('searchInput');
     filter = input.value.toUpperCase();
@@ -102,9 +237,9 @@
       }
     }
   }
-
-  document.getElementById("searchInput").addEventListener("keyup", searchAssignments);
-
   
-  sortAssignmentsByDueDate();
-</script>
+  document.getElementById('searchInput').addEventListener('keyup', searchAssignments);
+    
+  </script>
+</body>
+</html>
