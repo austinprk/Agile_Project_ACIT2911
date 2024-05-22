@@ -1,13 +1,12 @@
+<link rel="stylesheet" href="index.css">
+
 <header class="header">
   <nav id="nav1">
-
-      <ul>
-          <li><a href="/reminders">Dashboard</a></li>
-          <li><a href="/calendar">Calendar</a></li>
-          <li><a href="/reminder/new">Create</a></li>
-          <li><a href="#">Delete</a></li>
-          <li><a href="#">Modify</a></li>
-      </ul>
+    <ul>
+      <li><a href="/">Dashboard</a></li>
+      <li><a href="/reminders">Assignment</a></li>
+      <li><a href="/calendar">Calendar</a></li>
+    </ul>
   </nav>
 
 </header>
@@ -34,7 +33,7 @@
 
         <a class="btn btn-warning" href=<%= "/reminder/" + reminderItem.id + "/edit" %>>Edit</a>
 
-        <form class="deleteForm "method="POST" action=<%= "/reminder/delete/" + reminderItem.id %>>
+        <div class="container">
           <button type="submit" class="btn btn-danger">Delete</button>
         </form>
 
@@ -42,3 +41,4 @@
     </ul>
 
 </div>
+

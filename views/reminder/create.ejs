@@ -1,6 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
 <header class="header">
   <nav id="nav1">
-
       <ul>
           <li><a href="/reminders">Dashboard</a></li>
           <li><a href="/calendar">Calendar</a></li>
@@ -9,36 +18,86 @@
           <li><a href="#">Modify</a></li>
       </ul>
   </nav>
-
 </header>
 
 
-<div class="container">
-  <form action="/reminder" method="POST">
-    <div class="form-group">
-      <label for="title">Course</label>
-      <input type="text" class="form-control" id="titleInput" placeholder="ACIT2911" name="title">
+<button id="createBtn">Create</button>
+
+<div class="popup-overlay" id="popupOverlay"></div>
+<div class="popup" id="popup">
+    <div class="popup-header">
+        <h2>Add an Assignment</h2>
+        <h2 class="close-btn" id="closeBtn">&times;</h2>
     </div>
-    <div class="form-group">
-      <label for="type">Assignment Type</label>
-      <select class="form-control" id="typeInput" name="type">
-        <option value="Lab">Lab</option>
-        <option value="Quiz">Quiz</option>
-        <option value="Project">Project</option>
-      </select>
+    <div class="popup-body">
+        <div class="container">
+            <form action="/reminder" method="POST">
+                <div class="form-group">
+                    <label for="title">Course</label>
+                    <input type="text" class="form-control" id="titleInput" placeholder="ACIT2911" name="title">
+                </div>
+                <div class="form-group">
+                    <label for="type">Assignment Type</label>
+                    <select class="form-control" id="typeInput" name="type">
+                        <option value="Lab">Lab</option>
+                        <option value="Quiz">Quiz</option>
+                        <option value="Project">Project</option>
+                    </select>
+                </div>
+                <div class="form-group priority-container">
+                  <label class="priority-label" for="priority">Priority</label>
+                  <div class="priority-checkbox">
+                      <label><input type="radio" name="priority" value="1"> ★</label>
+                      <label><input type="radio" name="priority" value="2"> ★★</label>
+                      <label><input type="radio" name="priority" value="3"> ★★★</label>
+                  </div>
+              </div>
+                <div class="form-group">
+                    <label for="description">Assignment Description</label>
+                    <textarea class="form-control" id="descriptionInput" rows="3" placeholder="Description" name="description"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="duedate">Due Date</label>
+                    <input type="date" class="form-control" id="duedate" placeholder="Due Date" name="duedate">
+                </div>
+                <div class="form-group">
+                    <label for="tag">Tag</label>
+                    <input type="text" class="form-control" id="tag" placeholder="#Tag" name="tag">
+                </div>
+                <div class="submit-container">
+                    <button type="submit" class="btn">Submit</button>
+                </div>
+            </form>
+        </div>
     </div>
-    <div class="form-group">
-      <label for="description">Assignment Description</label>
-      <textarea class="form-control" id="descriptionInput" rows="3" placeholder="Description" name="description"></textarea>
-    </div>
-    <div class="form-group">
-      <label for="duedate">Due Date</label>
-      <input type="date" class="form-control" id="duedate" placeholder="Due Date" name="duedate">
-    </div>
-    <div class="form-group">
-    <label for="tag">Tag</label>
-    <input type="text" class="form-control" id="tag" placeholder="Tag" name="tag">
-    </div>
-    <button type="submit" class="btn btn-default">Submit</button>
-  </form>
 </div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const createBtn = document.getElementById('createBtn');
+        const popup = document.getElementById('popup');
+        const popupOverlay = document.getElementById('popupOverlay');
+        const closeBtn = document.getElementById('closeBtn');
+
+        createBtn.addEventListener('click', function() {
+            popup.style.display = 'block';
+            popupOverlay.style.display = 'block';
+        });
+
+        closeBtn.addEventListener('click', function() {
+            popup.style.display = 'none';
+            popupOverlay.style.display = 'none';
+        });
+
+        popupOverlay.addEventListener('click', function() {
+            popup.style.display = 'none';
+            popupOverlay.style.display = 'none';
+        });
+
+
+        popup.style.display = 'none';
+        popupOverlay.style.display = 'none';
+    });
+</script>
+</body>
+</html>

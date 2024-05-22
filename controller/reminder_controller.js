@@ -28,11 +28,11 @@ let remindersController = {
       id: database.reminders.length + 1,
       title: req.body.title,
       type: req.body.type,
+      priority: req.body.priority,
       description: req.body.description,
       duedate: req.body.duedate,
       tag: req.body.tag,
-      completed: false,
-      priority: req.body.priority
+      completed: false
     };
     database.reminders.push(reminder);
     res.redirect("/reminders");
@@ -54,10 +54,10 @@ let remindersController = {
     searchResult.title = req.body.title;
     searchResult.type = req.body.type;
     searchResult.description = req.body.description;
+    searchResult.priority = req.body.priority;
     searchResult.duedate = req.body.duedate;
     searchResult.tag = req.body.tag;
     searchResult.completed = req.body.completed;
-    searchResult.priority = req.body.priority;
     res.redirect("/reminders");
   },
 
