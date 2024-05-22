@@ -19,7 +19,8 @@
             </ul>
         </nav>
 
-        <h1 id="dashboard">Dashboard</h1>
+        <h1 id="date"></h1>
+        <h2 id="day"></h2>
         <div id="clock">
 
             <iframe scrolling="no" frameborder="no" clocktype="html5" style="overflow:hidden;border:0;margin:0;padding:0;width:151px;height:50px;"src="https://www.clocklink.com/html5embed.php?clock=008&timezone=Canada_Vancouver&color=black&size=151&Title=&Message=&Target=&From=2024,1,1,0,0,0&Color=black"></iframe>
@@ -65,6 +66,28 @@
 </div>
 
 </body>
+
+<script>
+
+document.getElementById('date').innerText = getDate();
+document.getElementById('day').innerText = getDay();
+
+function getDate() {
+    var today = new Date();
+    var year = today.getFullYear();
+    var month = today.getMonth() + 1;
+    var date = today.getDate();
+    return year + ". " + month + ". " + date + ".";
+}
+
+function getDay() {
+    var days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+    var today = new Date();
+    var dayIndex = today.getDay();
+    return days[dayIndex];
+}
+
+</script>
 </html>
 
 
