@@ -1,3 +1,12 @@
+body {
+width: 100%; /* Adjust as needed */
+height: 100vh; /* Adjust as needed */
+color: #404040;
+/* background: radial-gradient(circle, #FAEED1, #607274); */
+/* background: linear-gradient(to bottom, #FAEED1, #607274); */
+
+}
+
 header{
   margin: 5px;
   display: grid;
@@ -9,7 +18,14 @@ header{
   /* align-items: center; aligns the content inside the grid horizontly */
 }
 
+.top-of-header img {
+  width: 150px; 
+  height: auto; 
+}
+
+
 #dashboard {
+  font-family: "Jua", sans-serif;
   justify-self: center;
   grid-column: 3/span 2; /* select which column it'll be in */
   grid-row: 3;  /* select which row it'll be in */
@@ -24,6 +40,8 @@ header{
 }
 
 #nav1 ul{
+  background: black;
+  font-family: "Comfortaa", sans-serif;
   list-style: none;
   display: flex;
   flex-wrap: wrap;
@@ -34,8 +52,13 @@ header{
 }
 
 #nav1 li a {
-  color: black;
+  color: white;
   text-decoration: none;
+}
+
+#nav1 li a:hover {
+  background: white;
+  color: black; /* Change color on hover */
 }
 
 #urgent-assignments {
@@ -56,14 +79,40 @@ header{
 }
 
 #urgent-assignments div {
-  background-color: lightgrey;
+  font-family: "Comfortaa", sans-serif;
+  /* color: whitesmoke; */
   padding: 20px 0px 20px 0px;
   margin: 50px;
   width: 300px;
+  height: 200px; 
+  background-color: #FAEED1;
+  border-radius: 15px; 
 
 }
 
+#assignment-header{
+  color: white;
+  background: black;
+  grid-template-rows: 100px;
+}
 
+#clock {
+  font-family: "Jua", sans-serif;
+  font-size: 3em;
+  text-align: left;
+  margin-top: 30%;
+  grid-column: 1;
+}
+
+#logo img {
+  width: 120%;
+  height: auto;
+  /* Set other styles as needed */
+}
+
+body h2 {
+  font-family: "Jua", sans-serif;
+}
 
 
 /* CSS styles popup - assignment add */
@@ -135,5 +184,6 @@ header{
   display: flex;
   gap: 10px;
 }
-
-
+  
+  
+  
