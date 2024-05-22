@@ -4,251 +4,69 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Calendar</title>
-  <style>
+  <link rel="stylesheet" href="calendar.css">
 
-    body {
-      font-family: Arial, sans-serif;
-      background-color: #f2f2f2;
-      margin: 0;
-      padding: 0;
-    }
-
-    .header {
-      background-color: #333;
-      color: #fff;
-      padding: 10px;
-    }
-
-    .header ul {
-      list-style-type: none;
-      margin: 0;
-      padding: 0;
-    }
-
-    .header ul li {
-      display: inline-block;
-      margin-right: 10px;
-    }
-
-    .header ul li a {
-      color: #fff;
-      text-decoration: none;
-      padding: 5px;
-    }
-
-    h1 {
-      color: #333;
-      margin-top: 20px;
-    }
-
-    .container {
-      margin: 20px;
-      background-color: #fff;
-      padding: 20px;
-      border: 1px solid #ccc;
-      border-radius: 5px;
-    }
-
-    .search-container {
-      margin-bottom: 10px;
-    }
-
-    .search-container input[type="text"] {
-      padding: 5px;
-      width: 200px;
-    }
-
-    .sort-buttons {
-      margin-bottom: 10px;
-    }
-
-    .sort-buttons button {
-      padding: 5px 10px;
-      margin-right: 10px;
-      background-color: #333;
-      color: #fff;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-    }
-
-    .sort-buttons button:hover {
-      background-color: #555;
-    }
-
-    .list-group-item {
-      background-color: #f9f9f9;
-      border: 1px solid #ccc;
-      padding: 10px;
-      margin-bottom: 10px;
-      border-radius: 5px;
-    }
-
-    .list-group-item strong {
-      font-weight: bold;
-      color: #333;
-    }
-
-    .badge {
-      padding: 5px;
-      margin-right: 5px;
-      border-radius: 5px;
-    }
-
-    .badge-success {
-      background-color: green;
-      color: #fff;
-    }
-
-    .badge-danger {
-      background-color: red;
-      color: #fff;
-    }
-
-    .badge-warning {
-      background-color: orange;
-      color: #fff;
-    }
-
-    .badge-info {
-      background-color: blue;
-      color: #fff;
-    }
-
-    .badge-secondary {
-      background-color: gray;
-      color: #fff;
-    }
-
-    .pull-right {
-      float: right;
-    }
-
-    #calendar {
-      display: grid;
-      grid-template-columns: repeat(7, 1fr);
-      gap: 10px;
-    }
-
-    .day {
-      padding: 10px;
-      border: 1px solid #ccc;
-      position: relative; 
-      background-color: #fff;
-      transition: background-color 0.3s ease;
-      cursor: pointer;
-    }
-
-    .day:hover {
-      background-color: #f2f2f2;
-    }
-
-    .reminder {
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      background: yellow;
-      width: 100%;
-      font-size: 12px;
-    }
-
-    button {
-      margin: 10px;
-      padding: 5px 10px;
-      font-size: 16px;
-      background-color: #333;
-      color: #fff;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-      transition: background-color 0.3s ease;
-    }
-
-    button:hover {
-      background-color: #555;
-    }
-
-    #monthLabel {
-      font-size: 24px;
-      text-align: center;
-      margin-bottom: 20px;
-    }
-  </style>
 </head>
-<header class="header">
-    <nav id="nav1">
-  
-        <ul>
-            <li><a href="/">Dashboard</a></li>
-            <li><a href="/reminders">Assignment</a></li>
-            <li><a href="/calendar">Calendar</a></li>
-            <!-- <li><a href="/reminder/new">Create</a></li>
-            <li><a href="#">Delete</a></li>
-            <li><a href="#">Modify</a></li> -->
-        </ul>
+<body>
+  <header class="header">
+    <nav>
+      <ul>
+        <li><a href="/">Dashboard</a></li>
+        <li><a href="/reminders">Assignment</a></li>
+        <li><a href="/calendar">Calendar</a></li>
+      </ul>
     </nav>
-  
   </header>
   
-<body>
-    <div class="calendar">
-        <div class="calendar-header">
-            <button id="prevMonth">Previous</button>
-            <span id="currentMonthYear"></span>
-            <button id="nextMonth">Next</button>
-        </div>
-        
-        <div class="calendar-header">Sunday</div>
-        <div class="calendar-header">Monday</div>
-        <div class="calendar-header">Tuesday</div>
-        <div class="calendar-header">Wednesday</div>
-        <div class="calendar-header">Thursday</div>
-        <div class="calendar-header">Friday</div>
-        <div class="calendar-header">Saturday</div>
-        
-    
 
-        <div class="calendar-day">1</div>
-        <div class="calendar-day">2</div>
-        <div class="calendar-day">3</div>
+<h1>Reminders Calendar</h1>
+<div id="monthLabel"></div>
+<button id="prevMonth">Previous Month</button>
+<button id="nextMonth">Next Month</button>
+<div id="calendar"></div>
 
-    </div>
+<script>
+  let currentYear = new Date().getFullYear();
+  let currentMonth = new Date().getMonth() + 1;
 
-    <% reminders.forEach(function (reminderItem) { %>
+  function updateMonthLabel(year, month) {
+    const monthNames = ["January", "February", "March", "April", "May", "June",
+      "July", "August", "September", "October", "November", "December"];
+    const monthLabel = document.getElementById('monthLabel');
+    monthLabel.textContent = `${monthNames[month - 1]} ${year}`;
+  }
 
-        <strong><%= reminderItem.title %>: </strong>
-          <%= reminderItem.duedate %>
-    <% }) %>
-    
- 
+  function clearCalendar() {
+    const calendarDiv = document.getElementById('calendar');
+    calendarDiv.innerHTML = ''; 
+  }
 
-    <script>
+  function generateCalendar(year, month, reminders) {
+    clearCalendar(); 
+    updateMonthLabel(year, month); 
+    const daysInMonth = new Date(year, month, 0).getDate();
+    const firstDay = new Date(year, month - 1, 1).getDay();
+    const calendarDiv = document.getElementById('calendar');
 
-        const prevMonthButton = document.getElementById('prevMonth');
-        const nextMonthButton = document.getElementById('nextMonth');
-        const currentMonthYear = document.getElementById('currentMonthYear');
-        
-        let currentDate = new Date();
-        
-        function updateCalendar() {
-            const monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-            const currentMonth = currentDate.getMonth();
-            const currentYear = currentDate.getFullYear();
-            
-            currentMonthYear.textContent = `${monthNames[currentMonth]} ${currentYear}`;
-            
+    for (let i = 0; i < firstDay; i++) {
+      const emptyDiv = document.createElement('div');
+      calendarDiv.appendChild(emptyDiv);
+    }
 
-            const calendarDays = document.querySelectorAll('.calendar-day');
-            calendarDays.forEach(day => day.remove());
 
-            const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
-            for (let day = 1; day <= daysInMonth; day++) {
-                const calendarDay = document.createElement('div');
-                calendarDay.classList.add('calendar-day');
-                calendarDay.textContent = day;
-                document.querySelector('.calendar').appendChild(calendarDay);
-            }
+    for (let day = 1; day <= daysInMonth; day++) {
+      const dayDiv = document.createElement('div');
+      dayDiv.className = 'day';
+      dayDiv.textContent = day;
 
+
+      reminders.forEach(reminder => {
+        const reminderDate = new Date(reminder.duedate);
+        if (reminderDate.getDate() + 1 === day && reminderDate.getMonth() + 1 === month && reminderDate.getFullYear() === year) {
+          const reminderElement = document.createElement('div');
+          reminderElement.className = 'reminder';
+          reminderElement.textContent = reminder.title;
+          dayDiv.appendChild(reminderElement);
         }
       });
 

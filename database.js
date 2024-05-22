@@ -8,7 +8,7 @@ let database = {
             duedate: "2024-06-17",
             tag: "#Agile #Project",
             completed: false,
-            priority: "",
+            priority: 2,
         },
         {
             id: 2,
@@ -18,7 +18,7 @@ let database = {
             duedate: "2024-12-23",
             tag: "#Lab #ACIT2520",
             completed: false,
-            priority: "",
+            priority: 3,
         },
         {
             id: 3,
@@ -28,7 +28,7 @@ let database = {
             duedate: "2024-06-21",
             tag: "#Lab #ACIT4770",
             completed: false,
-            priority: "",
+            priority: 1,
             
         },
         {
@@ -39,7 +39,7 @@ let database = {
             duedate : "2024-05-31",
             tag : "#Lab #ACIT2811",
             completed : false,
-            priority : "",
+            priority : 2,
         }
     ]
 };
