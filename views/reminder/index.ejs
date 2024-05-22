@@ -27,7 +27,7 @@
       <button class="btn-sorting" onclick="sortAssignmentsByDueDate()" data-sort="Due Date">Sort by Due Date</button>
       <button class="btn-sorting" onclick="sortAssignmentsByType()" data-sort="Type">Sort by Type</button>
       <button class="btn-sorting" onclick="sortAssignmentsByPriority()" data-sort="Priority">Sort by Priority</button>      
-      
+
       <button id="createBtn">Add Assignment</button>
     </div>
 
@@ -54,13 +54,103 @@
           <% } %>
           <br>
           <% if (reminderItem.completed == true) { %>
-            <span class="badge badge-success">Completed</span>
+
+            <p>Completed</p>
           <% } else if (reminderItem.completed == false) { %>
             <span class="badge badge-danger">Not completed</span>
-          <% } %>
+          <% } %> 
  
           <br>
-          <a class="pull-right" href=<%= "/reminder/" + reminderItem.id %>>Details</a>
+            <button class="btn btn-warning" onclick="showDetailsPopup('<%= reminderItem.id %>')">Edit</button>
+            <button class="btn btn-danger" onclick="deleteAssignment('<%= reminderItem.id %>')">Delete</button>
+
+            <div class="popup-overlay" id="popupOverlay_<%= reminderItem.id %>"></div>
+            <div class="popup" id="popup_<%= reminderItem.id %>">
+              
+              <div class="container">
+                <h1 class="page-header">Edit</h1>
+                <form action="/reminder/update/<%= reminderItem.id %>" method="POST">
+                  <div class="form-group">
+                    <label for="title">Title</label>
+                    <input type="text" name="title" class="form-control" id="titleInput" value="<%= reminderItem.title %>">
+                  </div>
+                  <div class="form-group">
+                    <label for="type">Type</label>
+                    <select class="form-control" id="typeInput" name="type">
+                      <option value="lab" <% if (reminderItem.type == "lab") { %> selected <% } %>>Lab</option>
+                      <option value="quiz" <% if (reminderItem.type == "quiz") { %> selected <% } %>>Quiz</option>
+                      <option value="project" <% if (reminderItem.type == "project") { %> selected <% } %>>Project</option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label for="description">Description</label>
+                    <textarea class="form-control" id="descriptionInput" rows="3" placeholder="Description" name="description"><%= reminderItem.description %></textarea>
+                  </div>
+                  <div class="form-group">
+                    <label for="tag">Tag</label>
+                    <input type="text" class="form-control" id="tag" placeholder="Tag" name="tag" value="<%= reminderItem.tag %>">
+                  </div>
+                  <div class="form-group">
+                    <label for="priority">Priority</label>
+                    <div class="priority-checkbox">
+                      <% if (reminderItem.priority == 1) { %>
+                        <label><input type="radio" name="priority" value="1" checked="checked">★</label>
+                        <label><input type="radio" name="priority" value="2">★★</label>
+                        <label><input type="radio" name="priority" value="3">★★★</label>
+                    
+                      <% } else if (reminderItem.priority == 2) { %>
+                        <label><input type="radio" name="priority" value="1">★</label>
+                        <label><input type="radio" name="priority" value="2" checked="checked">★★</label>
+                        <label><input type="radio" name="priority" value="3">★★★</label>
+
+                      <% } else if (reminderItem.priority == 3) { %>
+                        <label><input type="radio" name="priority" value="1">★</label>
+                        <label><input type="radio" name="priority" value="2">★★</label>
+                        <label><input type="radio" name="priority" value="3" checked="checked">★★★</label>
+                      <% } %>
+
+
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="duedate">Due Date</label>
+                    <input type="date" class="form-control" id="duedate" placeholder="Due Date" name="duedate" value="<%= reminderItem.dueDate %>">
+                  </div>
+                  <div class="form-group">
+                    <label for="completed">Completed</label>
+                    <div class="radio">
+                      <label>
+                        <% if (reminderItem.completed == true) { %>
+                          <input type="radio" name="completed" id="true" value="true" checked="checked">
+                        <% } else { %>
+                          <input type="radio" name="completed" id="true" value="true">
+                        <% } %>
+                        True
+                      </label>
+                    </div>
+                    <div class="radio">
+                      <label>
+                        <% if (reminderItem.completed == false) { %>
+                          <input type="radio" name="completed" id="false" value="false" checked="checked">
+                        <% } else { %>
+                          <input type="radio" name="completed" id="false" value="false">
+                        <% } %>
+                        False
+                      </label>
+                    </div>
+                  </div>
+                  <button type="submit" class="btn btn-default">Submit</button>
+                </form>
+              </div>
+            </div>
+            <script>
+              function showDetailsPopup(id) {
+                var popupOverlay = document.getElementById('popupOverlay_' + id);
+                var popup = document.getElementById('popup_' + id);
+                popupOverlay.style.display = 'block';
+                popup.style.display = 'block';
+              }
+            </script>
         </li>
       <% }) %>
     </ul>
@@ -68,27 +158,27 @@
 
 
   <div class="popup-overlay" id="popupOverlay"></div>
-<div class="popup" id="popup">
+  <div class="popup" id="popup">
     <div class="popup-header">
-        <h2>Add an Assignment</h2>
-        <h2 class="close-btn" id="closeBtn">&times;</h2>
+      <h2>Add an Assignment</h2>
+      <h2 class="close-btn" id="closeBtn">&times;</h2>
     </div>
     <div class="popup-body">
-        <div class="container">
-            <form action="/reminder" method="POST">
-                <div class="form-group">
-                    <label for="title">Course</label>
-                    <input type="text" class="form-control" id="titleInput" placeholder="ACIT2911" name="title">
-                </div>
-                <div class="form-group">
-                    <label for="type">Assignment Type</label>
-                    <select class="form-control" id="typeInput" name="type">
-                        <option value="Lab">Lab</option>
-                        <option value="Quiz">Quiz</option>
-                        <option value="Project">Project</option>
-                    </select>
-                </div>
-                <div class="form-group priority-container">
+      <div class="container">
+        <form action="/reminder" method="POST">
+          <div class="form-group">
+            <label for="title">Course</label>
+            <input type="text" class="form-control" id="titleInput" placeholder="ACIT2911" name="title">
+          </div>
+          <div class="form-group">
+            <label for="type">Assignment Type</label>
+            <select class="form-control" id="typeInput" name="type">
+              <option value="Lab">Lab</option>
+              <option value="Quiz">Quiz</option>
+              <option value="Project">Project</option>
+            </select>
+          </div>
+          <div class="form-group priority-container"></div>
                   <label class="priority-label" for="priority">Priority</label>
                   <div class="priority-checkbox">
                       <label><input type="radio" name="priority" value="1"> ★</label>
@@ -116,7 +206,6 @@
     </div>
   </div>
   <script>
-// make sorting feature can be organized in order to asc, desc
 var sortByDueDateAsc = true;
     var sortByPriorityAsc = true;
     var sortByTypeAsc = true;
@@ -175,6 +264,68 @@ var sortByDueDateAsc = true;
             var typeB = b.querySelector(".type").textContent;
             if (sortByTypeAsc) {
                 return typeA.localeCompare(typeB);
+            } else {
+                return typeB.localeCompare(typeA);
+            }
+        });
+        updateSortButtonText("Type", sortByTypeAsc);
+        sortByTypeAsc = !sortByTypeAsc;
+        updateList(remindersArray);
+    }
+
+    function updateSortButtonText(sortBy, asc) {
+        var button = document.querySelector(".btn-sorting[data-sort='" + sortBy + "']");
+        button.textContent = "Sort by " + sortBy + (asc ? " ↑" : " ↓");
+    }
+    function updateList(sortedArray) {
+        var list = document.querySelector(".list-group");
+        list.innerHTML = "";
+        sortedArray.forEach(function(reminder) {
+            list.appendChild(reminder);
+        });
+    }
+    function sortAssignmentsByDueDate() {
+        var reminders = document.getElementsByClassName("list-group-item");
+        var remindersArray = Array.from(reminders);
+        remindersArray.sort(function(a, b) {
+            var dueDate1 = new Date(a.querySelector(".duedate").textContent);
+            var dueDate2 = new Date(b.querySelector(".duedate").textContent);
+            if (sortByDueDateAsc) {
+                return dueDate1 - dueDate2;
+            } else {
+                return dueDate2 - dueDate1;
+            }
+        });
+        updateSortButtonText("Due Date", sortByDueDateAsc);
+        sortByDueDateAsc = !sortByDueDateAsc;
+        updateList(remindersArray);
+    }
+
+    function sortAssignmentsByPriority() {
+        var reminders = document.getElementsByClassName("list-group-item");
+        var remindersArray = Array.from(reminders);
+        remindersArray.sort(function(a, b) {
+            var starsA = a.querySelectorAll(".priority > span").length;
+            var starsB = b.querySelectorAll(".priority > span").length;
+            if (sortByPriorityAsc) {
+                return starsB - starsA;
+            } else {
+                return starsA - starsB;
+            }
+        });
+        updateSortButtonText("Priority", sortByPriorityAsc);
+        sortByPriorityAsc = !sortByPriorityAsc;
+        updateList(remindersArray);
+    }
+
+    function sortAssignmentsByType() {
+        var reminders = document.getElementsByClassName("list-group-item");
+        var remindersArray = Array.from(reminders);
+        remindersArray.sort(function(a, b) {
+            var typeA = a.querySelector(".type").textContent;
+            var typeB = b.querySelector(".type").textContent;
+            if (sortByTypeAsc) {
+                return typeA.lvocaleCompare(typeB);
             } else {
                 return typeB.localeCompare(typeA);
             }

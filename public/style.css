@@ -9,14 +9,14 @@ header{
   /* align-items: center; aligns the content inside the grid horizontly */
 }
 
-#dashboard {
-  justify-self: center;
-  grid-column: 3/span 2; /* select which column it'll be in */
+#day {
+  /* justify-self: center;
+  grid-column: 3/span 2;  */
   grid-row: 3;  /* select which row it'll be in */
 }
 
 #clock{
-  grid-row: 2;
+  grid-row: 4;
 }
 #nav1{
   grid-column: 5;
