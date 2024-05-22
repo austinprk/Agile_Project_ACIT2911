@@ -23,33 +23,13 @@
     </div>
     <br>
 
-<<<<<<< HEAD
-  <ul class="list-group">
-    <% reminders.forEach(function (reminderItem) { %>
-      <li class="list-group-item square-box">
-        <strong><%= reminderItem.title %>: </strong>
-        || <span class="type"><%= reminderItem.type %></span>
-        || Due Date: <span class="duedate"><%= reminderItem.duedate %></span>
-        || <%= reminderItem.description %>
-        || <%= reminderItem.tag %>
-        || 
-        <% if (reminderItem.completed == true) { %>
-          <span class="badge badge-success">Completed</span>
-        <% } else if (reminderItem.completed == false) { %>
-          <span class="badge badge-danger">Not completed</span>
-        <% } %>
-        <% var currentDate = new Date(); %>
-        <% var dueDate = new Date(reminderItem.duedate); %>
-        <% var dateDiff = dueDate.getTime() - currentDate.getTime(); %>
-        <% var oneDay = 24 * 60 * 60 * 1000; %> <!-- used mileseconds for this part!!!!! -->
-=======
+
     <div class="sort-buttons">
       <button onclick="sortAssignmentsByDueDate()">Sort by Due Date</button>
       <button onclick="sortAssignmentsByType()">Sort by Type</button>
       <button onclick="sortAssignmentsByPriority()">Sort by Priority</button>
       <button id="createBtn">Add Assignment</button>
     </div>
->>>>>>> c443ac71a7f67f83a836104ea05a319134ee86df
 
     <ul class="list-group">
           <% reminders.forEach(function (reminderItem) { %>
