@@ -13,11 +13,9 @@
         <nav id="nav1">
 
             <ul>
-                <li><a href="/reminders">Dashboard</a></li>
+                <li><a href="/">Dashboard</a></li>
+                <li><a href="/reminders">Assignment</a></li>
                 <li><a href="/calendar">Calendar</a></li>
-                <li><a href="/reminder/new">Create</a></li>
-                <li><a href="#">Delete</a></li>
-                <li><a href="#">Modify</a></li>
             </ul>
         </nav>
 
@@ -42,16 +40,15 @@
             <p>Type: <%= reminderItem.type %></p>
             <p>Due Date: <%= reminderItem.duedate %></p>
             <p>Description: <%= reminderItem.description %></p>
-
-            <% if (dateDiff <= 2 * oneDay) { %>
-                <p> Priority: Urgent </p>
-            <% } else if (dateDiff > 2 * oneDay && dateDiff <= 4 * oneDay) { %>
-                <p> Priority: High </p>
-            <% } else if (dateDiff > 4 * oneDay && dateDiff <= 6 * oneDay) { %>
-                <p> Priority: Medium </p>
-            <% } else if (dateDiff > 6 * oneDay) { %>
-                <p> Priority: Low </p>
-            <% } %>
+            <% if (reminderItem.priority == 3) { %>
+                <p>Priority: ★★★</p>
+              <% } %>
+              <% if (reminderItem.priority == 2) { %>
+                <p>Priority: ★★</p>
+              <% } %>
+              <% if (reminderItem.priority == 1) { %>
+                <p>Priority: ★</p>
+              <% } %>
 
             <p>Status: 
                 <% if (reminderItem.completed == true) { %>
@@ -69,4 +66,5 @@
 
 </body>
 </html>
+
 

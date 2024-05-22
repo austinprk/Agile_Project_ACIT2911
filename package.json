@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "nyc mocha ./test/test.js",
+    "coverage": "nyc report --reporter=html --reporter=text --reporter=text-lcov",
     "start": "nodemon"
   },
   "repository": {
@@ -21,9 +22,12 @@
     "express-ejs-layouts": "^2.2.0",
     "express-session": "^1.18.0",
     "formidable": "^3.5.1",
+    "istanbul": "^0.4.5",
     "method-override": "^2.3.7",
+    "mocha": "^10.4.0",
     "node-fetch": "^2.7.0",
     "nodemon": "^1.19.4",
+    "nyc": "^15.1.0",
     "passport": "^0.7.0",
     "passport-github": "^1.1.0",
     "passport-github2": "^0.1.12",
