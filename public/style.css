@@ -28,7 +28,7 @@ header{
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   grid-column: 3/span 2;
-  grid-row: 3; 
+  grid-row: 3; }
 
 #day {
   /* justify-self: center;
