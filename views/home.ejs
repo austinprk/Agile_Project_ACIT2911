@@ -47,6 +47,10 @@
         <h1 id="header-title"></h1>
         <h1 id="dashboard">Dashboard</h1>
 
+        <h1 id="date"></h1>
+        <h2 id="day"></h2>
+
+
     </header>
 
         <h2 id="assignment-header">Urgent Assignments</h2>
@@ -87,6 +91,28 @@
 </div>
 
 </body>
+
+<script>
+
+document.getElementById('date').innerText = getDate();
+document.getElementById('day').innerText = getDay();
+
+function getDate() {
+    var today = new Date();
+    var year = today.getFullYear();
+    var month = today.getMonth() + 1;
+    var date = today.getDate();
+    return year + ". " + month + ". " + date + ".";
+}
+
+function getDay() {
+    var days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+    var today = new Date();
+    var dayIndex = today.getDay();
+    return days[dayIndex];
+}
+
+</script>
 </html>
 
 

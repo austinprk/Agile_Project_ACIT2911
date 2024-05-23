@@ -29,6 +29,16 @@ header{
   -webkit-text-fill-color: transparent;
   grid-column: 3/span 2;
   grid-row: 3; 
+
+#day {
+  /* justify-self: center;
+  grid-column: 3/span 2;  */
+  grid-row: 3;  /* select which row it'll be in */
+}
+
+#clock{
+  grid-row: 4;
+
 }
 #nav1{
   grid-row: 1;
