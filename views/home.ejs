@@ -11,11 +11,10 @@
    
 </head>
 <body>
-    <header class="top-of-header">
+    <section>
         <div id="logo">
             <img src="logo.png" alt="ParkYourAssignment logo">
         </div>
-        <h1 id="header-title"></h1>
         <nav id="nav1">
             <ul>
                 <li><a href="/">Dashboard</a></li>
@@ -23,9 +22,11 @@
                 <li><a href="/calendar">Calendar</a></li>
             </ul>
         </nav>
+        
+    </section>
+    <header class="top-of-header">
 
-        <h1 id="dashboard">Dashboard</h1>
-        <div id="clock">
+       <div id="clock">
             <script>
                 function updateClock() {
                   const now = new Date();
@@ -43,6 +44,9 @@
                 updateClock();
               </script>
         </div>
+        <h1 id="header-title"></h1>
+        <h1 id="dashboard">Dashboard</h1>
+
     </header>
 
         <h2 id="assignment-header">Urgent Assignments</h2>
