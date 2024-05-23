@@ -1,13 +1,34 @@
+body {
+width: 100%; /* Adjust as needed */
+height: 100vh; /* Adjust as needed */
+color: #404040;
+background: #E9E9E9;
+
+}
+
 header{
   margin: 5px;
   display: grid;
-  grid-template-columns: 20% 20% 10% 10% 40%; /* setting number of columns and their sizes in pixels/percentages */
+  grid-template-columns: 20% 20% 10% 10% 40%; 
   /* grid-column-gap: 50px; space between each column */
-  grid-template-rows: 50px 50p 50px; /* setting the number of rows and sizes */ /* space between each row  */
-  grid-auto-flow: column; /* choose column or row and then determines the order of where the content fills the grid */
-  /* justify-content: center; aligns the content inside the grid vertically */
-  /* align-items: center; aligns the content inside the grid horizontly */
+  grid-template-rows: 50px 50px 50px 50px;
+  grid-auto-flow: column; 
 }
+
+.top-of-header img {
+  width: 150px; 
+  height: auto; 
+}
+
+
+#dashboard {
+  font-family: "Jua", sans-serif;
+  justify-self: center;
+  background: linear-gradient(to right, #345B87, #B62743, #649466); 
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  grid-column: 3/span 2;
+  grid-row: 3; 
 
 #day {
   /* justify-self: center;
@@ -17,13 +38,18 @@ header{
 
 #clock{
   grid-row: 4;
+
 }
 #nav1{
-  grid-column: 5;
   grid-row: 1;
+  grid-column: 5 / span 5;
 }
 
 #nav1 ul{
+  margin-left: 5px;
+  margin-top: 5px;
+  background: #484848;
+  font-family: "Comfortaa", sans-serif;
   list-style: none;
   display: flex;
   flex-wrap: wrap;
@@ -34,14 +60,19 @@ header{
 }
 
 #nav1 li a {
-  color: black;
+  color: white;
   text-decoration: none;
+}
+
+#nav1 li a:hover {
+  background: white;
+  color: black; 
 }
 
 #urgent-assignments {
   display: flex;
-  grid-template-columns: 33% 33% 33%; /* setting number of columns and their sizes in pixels/percentages */
-  grid-column-gap: 10px; /* space between each column */
+  grid-template-columns: 33% 33% 33%; 
+  grid-column-gap: 10px; 
   grid-auto-flow: column;
   padding: 20px;
   width: 100%;
@@ -56,14 +87,49 @@ header{
 }
 
 #urgent-assignments div {
-  background-color: lightgrey;
+  font-family: "Comfortaa", sans-serif;
+  color: whitesmoke;
   padding: 20px 0px 20px 0px;
   margin: 50px;
   width: 300px;
+  height: 200px; 
+  background-color: #484848;
+  border-radius: 15px; 
+  
 
 }
 
+#assignment-header{
+  margin-left: 5px;
+  color: white;
+  background: #484848;
+  grid-template-rows: 100px;
+  padding: 10px;
+}
 
+#clock {
+  background: linear-gradient(to right, #345B87, #B62743, #649466); /* Define the gradient colors */
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  grid-row: 1;
+  font-family: "Jua", sans-serif;
+  font-size: 3em;
+  text-align: left;
+  grid-column: 1;
+}
+
+
+#logo img {
+  position: relative;
+  margin-left: 5px;
+  width: 250px;
+  height: auto;
+  /* Set other styles as needed */
+}
+
+body h2 {
+  font-family: "Jua", sans-serif;
+}
 
 
 /* CSS styles popup - assignment add */
@@ -135,5 +201,6 @@ header{
   display: flex;
   gap: 10px;
 }
-
-
+  
+  
+  
