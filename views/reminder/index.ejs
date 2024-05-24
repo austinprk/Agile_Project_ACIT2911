@@ -258,22 +258,40 @@
         });
       }
 
-    function searchAssignments() {
-    var input, filter, ul, li, a, i, txtValue;
+      function searchAssignments() {
+    var input, filter, ul, li, i, txtValue, strong, type, duedate, childNodes, j;
     input = document.getElementById('searchInput');
     filter = input.value.toUpperCase();
     ul = document.querySelector('.list-group');
     li = ul.getElementsByTagName('li');
+
     for (i = 0; i < li.length; i++) {
-      a = li[i].getElementsByTagName("strong")[0];
-      txtValue = a.textContent || a.innerText;
-      if (txtValue.toUpperCase().indexOf(filter) > -1) {
-        li[i].style.display = "";
-      } else {
-        li[i].style.display = "none";
-      }
+        strong = li[i].getElementsByTagName("strong")[0];
+        type = li[i].getElementsByClassName("type")[0];
+        duedate = li[i].getElementsByClassName("duedate")[0];
+
+        txtValue = (strong.textContent || strong.innerText) + " " +
+                   (type.textContent || type.innerText) + " " +
+                   (duedate.textContent || duedate.innerText) + " ";
+
+        childNodes = li[i].childNodes;
+        for (j = 0; j < childNodes.length; j++) {
+            if (childNodes[j].nodeType === Node.TEXT_NODE) {
+                txtValue += childNodes[j].textContent || childNodes[j].innerText;
+            }
+        }
+
+        if (txtValue.toUpperCase().indexOf(filter) > -1) {
+            li[i].style.display = "";
+        } else {
+            li[i].style.display = "none";
+        }
     }
-  }
+}
+
+  
+    document.getElementById('searchInput').addEventListener('keyup', searchAssignments);
+
 
   
   document.getElementById('searchInput').addEventListener('keyup', searchAssignments);
