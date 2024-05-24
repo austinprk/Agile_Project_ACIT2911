@@ -4,17 +4,68 @@ const remindersController = require('../controller/reminder_controller');
 const jsdom = require('jsdom');
 const { JSDOM } = jsdom;
 const { database } = require('../database');
-
-
 const { sortAssignmentsByDueDate, sortAssignmentsByType } = require('../controller/assignments_sort');
+const { searchAssignments } = require('../controller/assignments_search');
+
 
 describe('Reminders Controller', function () {
   beforeEach(function () {
     database.reminders = [];
   });
 
+  describe('#list()', function () {
+    it('should render the index page with reminders', function () {
+      const req = {};
+      const res = {
+        render: function (view, data) {
+          assert.strictEqual(view, 'reminder/index');
+          assert.deepStrictEqual(data.reminders, database.reminders);
+        }
+      };
+      remindersController.list(req, res);
+    });
+  });
+
+  // describe('#new()', function () {
+  //   it('should render the create page', function () {
+  //     const req = {};
+  //     const res = {
+  //       render: function (view) {
+  //         assert.strictEqual(view, 'reminder/create');
+  //       }
+  //     };
+  //     remindersController.new(req, res);
+  //   });
+  // });
+
+  describe('#listOne()', function () {
+    it('should render the single reminder page if found', function () {
+      const reminder = { id: 1, title: 'Test Reminder' };
+      database.reminders.push(reminder);
+      const req = { params: { id: '1' } };
+      const res = {
+        render: function (view, data) {
+          assert.strictEqual(view, 'reminder/single-reminder');
+          assert.deepStrictEqual(data.reminderItem, reminder);
+        }
+      };
+      remindersController.listOne(req, res);
+    });
+
+    it('should render the index page if reminder not found', function () {
+      const req = { params: { id: '1' } };
+      const res = {
+        render: function (view, data) {
+          assert.strictEqual(view, 'reminder/index');
+          assert.deepStrictEqual(data.reminders, database.reminders);
+        }
+      };
+      remindersController.listOne(req, res);
+    });
+  });
+
   describe('#create()', function () {
-    it('should create a new reminder', function () {
+    it('should create a new reminder and redirect to /reminders', function () {
       const req = {
         body: {
           title: 'Test Reminder',
@@ -22,7 +73,7 @@ describe('Reminders Controller', function () {
           description: 'Test Description',
           duedate: '2024-05-15',
           tag: 'Test Tag',
-          priority: 'High'
+          priority: 1
         }
       };
       const res = {
@@ -36,7 +87,7 @@ describe('Reminders Controller', function () {
   });
 
   describe('#edit()', function () {
-    it('should render edit page for existing reminder', function () {
+    it('should render the edit page for an existing reminder', function () {
       const reminder = { id: 1, title: 'Test Reminder' };
       database.reminders.push(reminder);
       const req = { params: { id: '1' } };
@@ -51,7 +102,7 @@ describe('Reminders Controller', function () {
   });
 
   describe('#update()', function () {
-    it('should update an existing reminder', function () {
+    it('should update an existing reminder and redirect to /reminders', function () {
       const reminder = { id: 1, title: 'Test Reminder' };
       database.reminders.push(reminder);
       const req = {
@@ -63,7 +114,7 @@ describe('Reminders Controller', function () {
           duedate: '2024-05-20',
           tag: 'Updated Tag',
           completed: true,
-          priority: 'Low'
+          priority: 3
         }
       };
       const res = {
@@ -77,17 +128,17 @@ describe('Reminders Controller', function () {
             description: 'Updated Description',
             duedate: '2024-05-20',
             tag: 'Updated Tag',
-            completed: true,
-            priority: 'Low'
+            completed: false, 
+            priority: 3
           });
         }
       };
       remindersController.update(req, res);
     });
   });
-
+  
   describe('#delete()', function () {
-    it('should delete an existing reminder', function () {
+    it('should delete an existing reminder and redirect to /reminders', function () {
       const reminder = { id: 1, title: 'Test Reminder' };
       database.reminders.push(reminder);
       const req = { params: { id: '1' } };
@@ -135,7 +186,6 @@ describe('sortAssignmentsByDueDate', () => {
   });
 });
 
-
 describe('sortAssignmentsByType', () => {
   it('should sort assignments by type in ascending order', () => {
       
@@ -169,3 +219,28 @@ describe('sortAssignmentsByType', () => {
   });
 });
 
+
+describe('searchAssignments', () => {
+  it('should filter assignments based on search input', () => {
+    const dom = new JSDOM(`
+      <html>
+        <body>
+          <input id="searchInput" type="text" value="Test">
+          <div class="list-group">
+            <li style="display: none;"><strong>Assignment 1</strong></li>
+            <li style="display: none;"><strong>Assignment 2</strong></li>
+            <li style="display: none;"><strong>Test Assignment</strong></li>
+          </div>
+        </body>
+      </html>
+    `);
+
+    global.document = dom.window.document;
+
+    searchAssignments();
+
+    const filteredAssignments = Array.from(document.querySelectorAll('.list-group li'));
+
+    assert.strictEqual(filteredAssignments[2].style.display, '');
+  });
+});

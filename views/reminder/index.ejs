@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Assignment</title>
+  <title>Assignments</title>
 </head>
 <body>
   <link rel="stylesheet" href="index.css">
@@ -15,28 +15,44 @@
     </nav>
   </header>
   <br>
-  <h1><b>&nbsp;&nbsp;Current Assignments</b></h1>
+  <h1><b>Current Assignments</b></h1>
   
   <div class="container">
-    <div class="search-container">
+    <div class="sort-buttons">
       <input type="text" id="searchInput" placeholder="Search assignments...">
+
+      <button onclick="sortAssignmentsByDueDate()">Sort by Due Date</button>
+      <button onclick="sortAssignmentsByType()">Sort by Type</button>
+      <button onclick="sortAssignmentsByPriority()">Sort by Priority</button>
+      <div class="separator-sort-create"></div> 
+      <button id="createBtn">+ Add Assignment</button>
     </div>
     <br>
 
-
-    <div class="sort-buttons">
-      <button class="btn-sorting" onclick="sortAssignmentsByDueDate()" data-sort="Due Date">Sort by Due Date</button>
-      <button class="btn-sorting" onclick="sortAssignmentsByType()" data-sort="Type">Sort by Type</button>
-      <button class="btn-sorting" onclick="sortAssignmentsByPriority()" data-sort="Priority">Sort by Priority</button>      
-
-
-      <button id="createBtn">Add Assignment</button>
-    </div>
-
     <ul class="list-group">
           <% reminders.forEach(function (reminderItem) { %>
-          <li class="list-group-item">
-          <strong><%= reminderItem.title %>: </strong>
+          <li class="list-group-item" id="listItem_<%= reminderItem.id %>">
+            <div class="status-and-priority">
+              <% if (reminderItem.completed == true) { %>
+                <span class="badge badge-success">Completed</span>
+              <% } else if (reminderItem.completed == false) { %>
+                <span class="badge badge-danger">Not Completed</span>
+              <% } %>
+              
+              <% if (reminderItem.priority == 3) { %>
+                <div class="priority"><span>★</span><span>★</span><span>★</span></div>
+              <% } %>
+              <% if (reminderItem.priority == 2) { %>
+                <div class="priority"><span>★</span><span>★</span></div>
+              <% } %>
+              <% if (reminderItem.priority == 1) { %>
+                <div class="priority"><span>★</span></div>
+              <% } %>
+            </div>
+            
+          <br>
+
+          <strong><%= reminderItem.title %></strong>
           <span class="type"><%= reminderItem.type %></span>
           <br>
           Due Date: <span class="duedate"><%= reminderItem.duedate %></span>
@@ -45,27 +61,15 @@
           <br>
           <%= reminderItem.tag %>
           <br>
-          <% if (reminderItem.priority == 3) { %>
-            <div class="priority">Priority : <span>★</span><span>★</span><span>★</span></div>
-          <% } %>
-          <% if (reminderItem.priority == 2) { %>
-            <div class="priority">Priority : <span>★</span><span>★</span></div>
-          <% } %>
-          <% if (reminderItem.priority == 1) { %>
-            <div class="priority">Priority : <span>★</span></div>
-          <% } %>
           <br>
-          <% if (reminderItem.completed == true) { %>
-
-            <p>Completed</p>
-          <% } else if (reminderItem.completed == false) { %>
-            <span class="badge badge-danger">Not completed</span>
-          <% } %> 
- 
-          <br>
+          <div class="button-group">
             <button class="btn btn-warning" onclick="showDetailsPopup('<%= reminderItem.id %>')">Edit</button>
-            <button class="btn btn-danger" onclick="deleteAssignment('<%= reminderItem.id %>')">Delete</button>
-
+            <form action="/reminder/delete/<%= reminderItem.id %>" method="post" style="display: inline;">
+              <button type="submit" class="btn btn-danger" onclick="return confirm('Do you really want to delete this assignment?');">Delete</button>
+            </form>
+            </div>
+         
+            
             <div class="popup-overlay" id="popupOverlay_<%= reminderItem.id %>"></div>
             <div class="popup" id="popup_<%= reminderItem.id %>">
               
@@ -117,6 +121,7 @@
                     <label for="duedate">Due Date</label>
                     <input type="date" class="form-control" id="duedate" placeholder="Due Date" name="duedate" value="<%= reminderItem.dueDate %>">
                   </div>
+
                   <div class="form-group">
                     <label for="completed">Completed</label>
                     <div class="radio">
@@ -140,13 +145,10 @@
                       </label>
                     </div>
                   </div>
-                  <div class="submit-container">
-                    <button type="submit" class="btn">Submit</button>
-                </div>
+                  <button type="submit" class="sort-buttons">Submit</button>
                 </form>
               </div>
             </div>
-            
             <script>
               function showDetailsPopup(id) {
                 var popupOverlay = document.getElementById('popupOverlay_' + id);
@@ -210,106 +212,73 @@
     </div>
   </div>
   <script>
-    var sortByDueDateAsc = true;
-    var sortByPriorityAsc = true;
-    var sortByTypeAsc = true;
-
-    function setInitialButtonText() {
-        var buttons = document.querySelectorAll(".btn-sorting");
-        buttons.forEach(function(button) {
-            var sortBy = button.getAttribute("data-sort");
-            button.textContent = "Sort by " + sortBy;
-        });
-    }
-
-    window.onload = function() {
-        setInitialButtonText();
-    };
 
     function sortAssignmentsByDueDate() {
         var reminders = document.getElementsByClassName("list-group-item");
         var remindersArray = Array.from(reminders);
         remindersArray.sort(function(a, b) {
-            var dueDate1 = new Date(a.querySelector(".duedate").textContent);
-            var dueDate2 = new Date(b.querySelector(".duedate").textContent);
-            if (sortByDueDateAsc) {
-                return dueDate1 - dueDate2;
-            } else {
-                return dueDate2 - dueDate1;
-            }
+          var dueDate1 = new Date(a.querySelector(".duedate").textContent);
+          var dueDate2 = new Date(b.querySelector(".duedate").textContent);
+          return dueDate1 - dueDate2;
         });
-        updateSortButtonText("Due Date", sortByDueDateAsc);
-        sortByDueDateAsc = !sortByDueDateAsc;
-        updateList(remindersArray);
-    }
-
-    function sortAssignmentsByPriority() {
-        var reminders = document.getElementsByClassName("list-group-item");
-        var remindersArray = Array.from(reminders);
-        remindersArray.sort(function(a, b) {
-            var starsA = a.querySelectorAll(".priority > span").length;
-            var starsB = b.querySelectorAll(".priority > span").length;
-            if (sortByPriorityAsc) {
-                return starsB - starsA;
-            } else {
-                return starsA - starsB;
-            }
-        });
-        updateSortButtonText("Priority", sortByPriorityAsc);
-        sortByPriorityAsc = !sortByPriorityAsc;
-        updateList(remindersArray);
-    }
-
-    function sortAssignmentsByType() {
-        var reminders = document.getElementsByClassName("list-group-item");
-        var remindersArray = Array.from(reminders);
-        remindersArray.sort(function(a, b) {
-            var typeA = a.querySelector(".type").textContent;
-            var typeB = b.querySelector(".type").textContent;
-            if (sortByTypeAsc) {
-                return typeA.localeCompare(typeB);
-            } else {
-                return typeB.localeCompare(typeA);
-            }
-        });
-        updateSortButtonText("Type", sortByTypeAsc);
-        sortByTypeAsc = !sortByTypeAsc;
-        updateList(remindersArray);
-    }
-
-    function updateSortButtonText(sortBy, asc) {
-        var button = document.querySelector(".btn-sorting[data-sort='" + sortBy + "']");
-        button.textContent = "Sort by " + sortBy + (asc ? " ↑" : " ↓");
-    }
-
-    function updateList(sortedArray) {
         var list = document.querySelector(".list-group");
         list.innerHTML = "";
-        sortedArray.forEach(function(reminder) {
-            list.appendChild(reminder);
+        remindersArray.forEach(function(reminder) {
+          list.appendChild(reminder);
         });
-    }
+      }
+
+      function sortAssignmentsByPriority() {
+        var reminders = document.getElementsByClassName("list-group-item");
+        var remindersArray = Array.from(reminders);
+        remindersArray.sort(function(a, b) {
+          var starsA = a.querySelectorAll(".priority > span").length;  
+          var starsB = b.querySelectorAll(".priority > span").length;
+          return starsB - starsA; 
+        });
+        var list = document.querySelector(".list-group");
+        list.innerHTML = "";
+        remindersArray.forEach(function(reminder) {
+          list.appendChild(reminder);
+        });
+      }
+
+      function sortAssignmentsByType() {
+        var reminders = document.getElementsByClassName("list-group-item");
+        var remindersArray = Array.from(reminders);
+        remindersArray.sort(function(a, b) {
+          var typeA = a.querySelector(".type").textContent;
+          var typeB = b.querySelector(".type").textContent;
+          return typeA.localeCompare(typeB);
+        });
+        var list = document.querySelector(".list-group");
+        list.innerHTML = "";
+        remindersArray.forEach(function(reminder) {
+          list.appendChild(reminder);
+        });
+      }
 
     function searchAssignments() {
-        var input, filter, ul, li, a, i, txtValue;
-        input = document.getElementById('searchInput');
-        filter = input.value.toUpperCase();
-        ul = document.querySelector('.list-group');
-        li = ul.getElementsByTagName('li');
-        for (i = 0; i < li.length; i++) {
-            a = li[i].getElementsByTagName("strong")[0];
-            txtValue = a.textContent || a.innerText;
-            if (txtValue.toUpperCase().indexOf(filter) > -1) {
-                li[i].style.display = "";
-            } else {
-                li[i].style.display = "none";
-            }
-        }
+    var input, filter, ul, li, a, i, txtValue;
+    input = document.getElementById('searchInput');
+    filter = input.value.toUpperCase();
+    ul = document.querySelector('.list-group');
+    li = ul.getElementsByTagName('li');
+    for (i = 0; i < li.length; i++) {
+      a = li[i].getElementsByTagName("strong")[0];
+      txtValue = a.textContent || a.innerText;
+      if (txtValue.toUpperCase().indexOf(filter) > -1) {
+        li[i].style.display = "";
+      } else {
+        li[i].style.display = "none";
+      }
     }
-  
-    document.getElementById('searchInput').addEventListener('keyup', searchAssignments);
+  }
 
-    document.addEventListener('DOMContentLoaded', function() {
+  
+  document.getElementById('searchInput').addEventListener('keyup', searchAssignments);
+
+  document.addEventListener('DOMContentLoaded', function() {
         const createBtn = document.getElementById('createBtn');
         const popup = document.getElementById('popup');
         const popupOverlay = document.getElementById('popupOverlay');
@@ -333,6 +302,8 @@
         popup.style.display = 'none';
         popupOverlay.style.display = 'none';
     });
-</script>
+    
+  
+  </script>
 </body>
 </html>
