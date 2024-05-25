@@ -5,7 +5,7 @@ let database = {
             title: "ACIT2911",
             type: "Project",
             description: "Agile project presentation",
-            duedate: "2024-05-17",
+            duedate: "2024-05-31",
             tag: "#Agile #Project",
             completed: false,
             priority: 2,

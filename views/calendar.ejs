@@ -82,7 +82,7 @@ function generateCalendar(year, month, reminders) {
 
     reminders.forEach(reminder => {
       const reminderDate = new Date(reminder.duedate);
-      if (reminderDate.getDate() === day && reminderDate.getMonth() + 1 === month && reminderDate.getFullYear() === year) {
+      if (reminderDate.getDate() + 1 === day && reminderDate.getMonth() + 1 === month && reminderDate.getFullYear() === year) {
         const reminderElement = document.createElement('div');
         reminderElement.className = 'reminder';
         reminderElement.textContent = reminder.title;
