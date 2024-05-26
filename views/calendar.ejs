@@ -3,9 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Calendar</title>
   <link rel="stylesheet" href="calendar.css">
-
+  <title>Assignments Calendar</title>
 </head>
 <body>
   <header class="header">
@@ -17,152 +16,133 @@
       </ul>
     </nav>
   </header>
-
-
-<h1>Assignments Calendar</h1>
-<div id="monthLabel"></div>
-
-<div class="priority-container">
-  <div class="priority-item">
-    <div class="priority-box"></div>
+  <h1><b>Assignments Calendar</b></h1>
+  <div class="container">
+    <div id="monthLabel"></div>
+    <button id="prevMonth">Previous Month</button>
+    <button id="nextMonth">Next Month</button>
+    <div class="priority-container">
+      <div class="priority-item">
+        <div class="priority-box red">0</div>
+        <div>★</div>
+      </div>
+      <div class="priority-item">
+        <div class="priority-box yellow">0</div>
+        <div>★★</div>
+      </div>
+      <div class="priority-item">
+        <div class="priority-box blue">0</div>
+        <div>★★★</div>
+      </div>
+    </div>
+    <div id="calendar"></div>
+    <div id="expanded-box"></div>
   </div>
+  <script>
+    let currentYear = new Date().getFullYear();
+    let currentMonth = new Date().getMonth() + 1;
 
-  <div class="priority-item">
-    <div class="priority-box"></div>
-  </div>
+    function updateMonthLabel(year, month) {
+      const monthNames = ["January", "February", "March", "April", "May", "June",
+        "July", "August", "September", "October", "November", "December"];
+      document.getElementById('monthLabel').textContent = `${monthNames[month - 1]} ${year}`;
+    }
 
-  <div class="priority-item">
-    <div class="priority-box"></div>
-  </div>
-</div>
+    function clearCalendar() {
+      document.getElementById('calendar').innerHTML = '';
+    }
 
-<button id="prevMonth">Previous Month</button>
-<button id="nextMonth">Next Month</button>
-<div id="calendar"></div>
-<div id="expanded-box" style="display: none;">
-sdasdasd
-</div>
+    function generateCalendar(year, month, reminders) {
+      clearCalendar();
+      updateMonthLabel(year, month);
+      let priorityCounts = {1: 0, 2: 0, 3: 0};
 
+      const daysInMonth = new Date(year, month, 0).getDate();
+      const firstDay = new Date(year, month - 1, 1).getDay();
+      const calendarDiv = document.getElementById('calendar');
+      
+      const dayNames = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+      dayNames.forEach(dayName => {
+        const dayNameDiv = document.createElement('div');
+        dayNameDiv.className = 'day-name';
+        dayNameDiv.textContent = dayName;
+        calendarDiv.appendChild(dayNameDiv);
+      });
 
-
-<script>
-let currentYear = new Date().getFullYear();
-let currentMonth = new Date().getMonth() + 1;
-
-function updateMonthLabel(year, month) {
-  const monthNames = ["January", "February", "March", "April", "May", "June",
-    "July", "August", "September", "October", "November", "December"];
-  const monthLabel = document.getElementById('monthLabel');
-  monthLabel.textContent = `${monthNames[month - 1]} ${year}`;
-}
-
-function clearCalendar() {
-  const calendarDiv = document.getElementById('calendar');
-  calendarDiv.innerHTML = ''; 
-}
-
-function generateCalendar(year, month, reminders) {
-  clearCalendar(); 
-  updateMonthLabel(year, month); 
-  let priorityCounts = {1: 0, 2: 0, 3: 0};
-
-  const daysInMonth = new Date(year, month, 0).getDate();
-  const firstDay = new Date(year, month - 1, 1).getDay();
-  const calendarDiv = document.getElementById('calendar');
-
-  for (let i = 0; i < firstDay; i++) {
-    const emptyDiv = document.createElement('div');
-    calendarDiv.appendChild(emptyDiv);
-  }
-
-  for (let day = 1; day <= daysInMonth; day++) {
-    const dayDiv = document.createElement('div');
-    dayDiv.className = 'day';
-    dayDiv.textContent = day;
-
-    reminders.forEach(reminder => {
-      const reminderDate = new Date(reminder.duedate);
-      if (reminderDate.getDate() + 1 === day && reminderDate.getMonth() + 1 === month && reminderDate.getFullYear() === year) {
-        const reminderElement = document.createElement('div');
-        reminderElement.className = 'reminder';
-        reminderElement.textContent = reminder.title;
-        dayDiv.appendChild(reminderElement);
-
-        priorityCounts[reminder.priority]++;
+      for (let i = 0; i < firstDay; i++) {
+        calendarDiv.appendChild(document.createElement('div'));
       }
+
+      for (let day = 1; day <= daysInMonth; day++) {
+        const dayDiv = document.createElement('div');
+        dayDiv.className = 'day';
+        dayDiv.textContent = day;
+
+        reminders.forEach(reminder => {
+          const reminderDate = new Date(reminder.duedate);
+          if (reminderDate.getDate() + 1 === day && reminderDate.getMonth() + 1 === month && reminderDate.getFullYear() === year) {
+            const reminderElement = document.createElement('div');
+            reminderElement.className = `reminder priority-${reminder.priority}`;
+            reminderElement.textContent = reminder.title;
+            dayDiv.appendChild(reminderElement);
+            priorityCounts[reminder.priority]++;
+          }
+        });
+
+        calendarDiv.appendChild(dayDiv);
+      }
+
+      updatePriorityCounts(priorityCounts);
+    }
+
+    function updatePriorityCounts(priorityCounts) {
+      const priorityContainer = document.querySelector('.priority-container');
+      const redBox = priorityContainer.querySelector('.priority-box.red');
+      const yellowBox = priorityContainer.querySelector('.priority-box.yellow');
+      const blueBox = priorityContainer.querySelector('.priority-box.blue');
+      redBox.textContent = priorityCounts[1];
+      yellowBox.textContent = priorityCounts[2];
+      blueBox.textContent = priorityCounts[3];
+    }
+
+    function toggleBox(dayElement) {
+      const expandedBox = document.getElementById("expanded-box");
+      if (expandedBox.style.display === "none" || expandedBox.textContent !== `You clicked on ${dayElement.textContent}`) {
+        expandedBox.style.display = "block";
+        expandedBox.textContent = `You clicked on ${dayElement.textContent}`;
+      } else {
+        expandedBox.style.display = "none";
+      }
+    }
+
+    document.getElementById('prevMonth').addEventListener('click', function () {
+      if (currentMonth === 1) {
+        currentMonth = 12;
+        currentYear--;
+      } else {
+        currentMonth--;
+      }
+      generateCalendar(currentYear, currentMonth, reminders);
     });
 
-    calendarDiv.appendChild(dayDiv);
-  }
+    document.getElementById('nextMonth').addEventListener('click', function () {
+      if (currentMonth === 12) {
+        currentMonth = 1;
+        currentYear++;
+      } else {
+        currentMonth++;
+      }
+      generateCalendar(currentYear, currentMonth, reminders);
+    });
 
- 
-  const priorityContainer = document.querySelector('.priority-container');
-  priorityContainer.innerHTML = ''; 
-  Object.keys(priorityCounts).forEach(priority => {
-    const priorityItem = document.createElement('div');
-    priorityItem.className = 'priority-item';
-    const priorityBox = document.createElement('div');
-    priorityBox.className = 'priority-box';
-    priorityBox.style.color = 'black'; 
-    priorityBox.style.fontWeight = 'bold';
-    priorityBox.textContent = priorityCounts[priority]; 
-    priorityBox.style.display = 'flex'; 
-    priorityBox.style.alignItems = 'center'; 
-    priorityBox.style.justifyContent = 'center';
-    const priorityText = document.createElement('div');
-    priorityText.className = 'priority-text';
-    let stars = '';
-    for (let i = 0; i < priority; i++) {
-      stars += '★';
-    }
-    priorityText.textContent = `${stars}`;
-    priorityItem.appendChild(priorityBox);
-    priorityItem.appendChild(priorityText);
-    priorityContainer.appendChild(priorityItem);
-  });
-}
+    const reminders = <%- JSON.stringify(reminders) %>;
+    generateCalendar(currentYear, currentMonth, reminders);
 
-function toggleBox(dayElement) {
-  const expandedBox = document.getElementById("expanded-box");
-  if (expandedBox.style.display === "none" || expandedBox.textContent !== `You clicked on ${dayElement.textContent}`) {
-    expandedBox.style.display = "block";
-    expandedBox.textContent = `You clicked on ${dayElement.textContent}`;
-  } else {
-    expandedBox.style.display = "none";
-  }
-}
-
-document.getElementById('prevMonth').addEventListener('click', function () {
-  if (currentMonth === 1) {
-    currentMonth = 12;
-    currentYear--;
-  } else {
-    currentMonth--;
-  }
-  generateCalendar(currentYear, currentMonth, reminders);
-});
-
-document.getElementById('nextMonth').addEventListener('click', function () {
-  if (currentMonth === 12) {
-    currentMonth = 1;
-    currentYear++;
-  } else {
-    currentMonth++;
-  }
-  generateCalendar(currentYear, currentMonth, reminders);
-});
-
-const reminders = <%- JSON.stringify(reminders) %>;
-generateCalendar(currentYear, currentMonth, reminders);
-
-
-document.getElementById("calendar").addEventListener("click", function(event) {
-  if (event.target.classList.contains("day")) {
-    toggleBox(event.target);
-  }
-});
-
-
-</script>
+    document.getElementById("calendar").addEventListener("click", function(event) {
+      if (event.target.classList.contains("day")) {
+        toggleBox(event.target);
+      }
+    });
+  </script>
 </body>
 </html>

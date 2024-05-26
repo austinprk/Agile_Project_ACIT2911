@@ -85,7 +85,7 @@ body {
   
   
   #clock {
-    background: linear-gradient(to right, #345B87, #B62743, #649466); /* Define the gradient colors */
+    background: linear-gradient(to right, #345B87, #B62743, #649466);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     grid-row: 2;

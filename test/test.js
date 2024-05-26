@@ -26,17 +26,17 @@ describe('Reminders Controller', function () {
     });
   });
 
-  // describe('#new()', function () {
-  //   it('should render the create page', function () {
-  //     const req = {};
-  //     const res = {
-  //       render: function (view) {
-  //         assert.strictEqual(view, 'reminder/create');
-  //       }
-  //     };
-  //     remindersController.new(req, res);
-  //   });
-  // });
+  describe('#new()', function () {
+    it('should render the create page', function () {
+      const req = {};
+      const res = {
+        render: function (view) {
+          assert.strictEqual(view, 'reminder/create');
+        }
+      };
+      remindersController.new(req, res);
+    });
+  });
 
   describe('#listOne()', function () {
     it('should render the single reminder page if found', function () {
