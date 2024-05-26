@@ -60,12 +60,15 @@
       const daysInMonth = new Date(year, month, 0).getDate();
       const firstDay = new Date(year, month - 1, 1).getDay();
       const calendarDiv = document.getElementById('calendar');
-      
       const dayNames = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
       dayNames.forEach(dayName => {
         const dayNameDiv = document.createElement('div');
         dayNameDiv.className = 'day-name';
         dayNameDiv.textContent = dayName;
+        dayNameDiv.style.height = '40px'; 
+        dayNameDiv.style.textAlign = 'center'; 
+        dayNameDiv.style.lineHeight = 'center';
+        dayNameDiv.style.fontWeight = 'bold'; 
         calendarDiv.appendChild(dayNameDiv);
       });
 
@@ -80,7 +83,7 @@
 
         reminders.forEach(reminder => {
           const reminderDate = new Date(reminder.duedate);
-          if (reminderDate.getDate() + 1 === day && reminderDate.getMonth() + 1 === month && reminderDate.getFullYear() === year) {
+          if (!reminder.completed && reminderDate.getDate() + 1 === day && reminderDate.getMonth() + 1 === month && reminderDate.getFullYear() === year) {
             const reminderElement = document.createElement('div');
             reminderElement.className = `reminder priority-${reminder.priority}`;
             reminderElement.textContent = reminder.title;
@@ -105,15 +108,15 @@
       blueBox.textContent = priorityCounts[3];
     }
 
-    function toggleBox(dayElement) {
-      const expandedBox = document.getElementById("expanded-box");
-      if (expandedBox.style.display === "none" || expandedBox.textContent !== `You clicked on ${dayElement.textContent}`) {
-        expandedBox.style.display = "block";
-        expandedBox.textContent = `You clicked on ${dayElement.textContent}`;
-      } else {
-        expandedBox.style.display = "none";
-      }
-    }
+    // function toggleBox(dayElement) {
+    //   const expandedBox = document.getElementById("expanded-box");
+    //   if (expandedBox.style.display === "none" || expandedBox.textContent !== `You clicked on ${dayElement.textContent}`) {
+    //     expandedBox.style.display = "block";
+    //     expandedBox.textContent = `You clicked on ${dayElement.textContent}`;
+    //   } else {
+    //     expandedBox.style.display = "none";
+    //   }
+    // }
 
     document.getElementById('prevMonth').addEventListener('click', function () {
       if (currentMonth === 1) {
