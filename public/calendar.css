@@ -5,6 +5,7 @@ body, html {
   background-image: none;
 }
 .header {
+  margin:0;
   background-color: #124076;
   color: #fff;
   padding: 24px;
@@ -25,7 +26,14 @@ body, html {
   color: #fff;
   text-decoration: none;
   padding: 5px;
+  transition: all 0.5s ease;
 }
+
+.header ul a:hover {
+  /* background: #F9E897; */
+  color: #FFC374; 
+}
+
 h1 {
   font-family: "Jua", sans-serif;
   color: #333;
@@ -35,7 +43,7 @@ h1 {
 #monthLabel {
   font-family: "Jua", sans-serif;
   text-align: center;
-  font-size: 24px;
+  font-size: 40px;
   margin: 20px 0;
 }
 #calendar {
@@ -47,12 +55,12 @@ h1 {
 }
 .day, .day-name {
   padding: 10px;
-  background: #f0f0f0;
   border: 1px solid #ddd;
   text-align: center;
 }
 .day {
-  cursor: pointer;
+  /* cursor: pointer; */
+  background: #f0f0f0;
 }
 
 #prevMonth, #nextMonth {
@@ -68,7 +76,11 @@ h1 {
 }
 .priority-item {
   margin: 0 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center; 
 }
+
 .priority-box {
   width: 30px;
   height: 30px;
@@ -99,22 +111,24 @@ h1 {
 }
 
 .priority-box.red {
-  background-color: red;
+  background-color: #ffc77d;
+  color: black;
 }
 
 .priority-box.yellow {
-  background-color: yellow;
+  background-color: #9bd19c;
   color: black;
 }
 
 .priority-box.blue {
-  background-color: blue;
+  background-color: #ff5c47;
+  color: black;
 }
 
 #prevMonth, #nextMonth {
   padding: 5px 10px;
   margin-right: 10px;
-  background-color: #333;
+  background-color: #124076;
   color: #fff;
   border: none;
   border-radius: 5px;
@@ -122,7 +136,7 @@ h1 {
 }
 
 #prevMonth:hover,#nextMonth:hover {
-  background-color: #555;
+  background-color: #103157;
 }
 
 .reminder {
@@ -134,14 +148,30 @@ h1 {
 }
 
 .priority-1 {
-  background-color: red;
+  background-color: #ffc77d;
+  color: black;
 }
 
 .priority-2 {
-  background-color: yellow;
+  background-color: #9bd19c;
   color: black; /* i added this color for readability as the text was white on yellow */
 }
 
 .priority-3 {
-  background-color: blue;
+  background-color: #ff5c47;
+  color: black;
+}
+
+#monthbtns {
+  display: flex;
+  justify-content: space-between;
+}
+
+.day-name {
+  font-weight: bold;
+  background-color: #F9E897;
+}
+
+#third {
+  margin-left: 5px;
 }
