@@ -232,3 +232,44 @@ h1 {
 #submit1:hover, #submit2:hover {
   background-color: #366137;
 }
+
+.popupTitle {
+  text-align: center;
+}
+
+#addTitle {
+  margin-left: 40px;
+  margin-bottom: 10px;
+}
+
+.close-btn {
+  float: right;
+  font-size: 40px;
+  font-weight: bold;
+  padding: 2px 6px;
+  background-color: #f5f5f5;
+  color: #124076;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.close-btn:hover {
+  color: #103157;
+}
+
+#closeBtn {
+  margin-bottom: 10px;
+}
+
+#editTitle {
+  margin-left: 150px;
+}
+
+.popup {
+  background-color: #f5f5f5;
+}
+
+.popup-header {
+margin-bottom: 10px;
+}

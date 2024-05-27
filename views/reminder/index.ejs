@@ -81,8 +81,11 @@
 
         <div class="popup-overlay" id="popupOverlay_<%= reminderItem.id %>"></div>
         <div class="popup" id="popup_<%= reminderItem.id %>">
-          <div class="container">
-            <h1 class="page-header">Edit</h1>
+          <div class="popup-header">
+            <h2 class="popupTitle" id="editTitle">Edit</h2>
+            <button class="close-btn" onclick="closeDetailsPopup('<%= reminderItem.id %>')">&times;</button>
+          </div>
+            <div class="container">
             <form action="/reminder/update/<%= reminderItem.id %>" method="POST" onsubmit="return validateForm('<%= reminderItem.id %>')">
               <div class="form-group">
                 <label for="title">Title</label>
@@ -170,8 +173,8 @@
   <div class="popup-overlay" id="popupOverlay"></div>
   <div class="popup" id="popup">
     <div class="popup-header">
-      <h2>Add an Assignment</h2>
-      <h2 class="close-btn" id="closeBtn">&times;</h2>
+      <h2 class="popupTitle" id="addTitle">Add an Assignment</h2>
+      <button class="close-btn" id="closeBtn">&times;</button>
     </div>
     <div class="popup-body">
       <div class="container">
@@ -352,31 +355,34 @@
     document.getElementById('searchInput').addEventListener('keyup', searchAssignments);
 
     document.addEventListener('DOMContentLoaded', function() {
-      const createBtn = document.getElementById('createBtn');
-      const popup = document.getElementById('popup');
-      const popupOverlay = document.getElementById('popupOverlay');
-      const closeBtn = document.getElementById('closeBtn');
+    const createBtn = document.getElementById('createBtn');
+    const popup = document.getElementById('popup');
+    const popupOverlay = document.getElementById('popupOverlay');
+    const closeBtn = document.getElementById('closeBtn');
 
-      createBtn.addEventListener('click', function() {
+    createBtn.addEventListener('click', function() {
         popup.style.display = 'block';
         popupOverlay.style.display = 'block';
-      });
-
-      closeBtn.addEventListener('click', function() {
-        popup.style.display = 'none';
-        popupOverlay.style.display = 'none';
-      });
-
-      popupOverlay.addEventListener('click', function() {
-        popup.style.display = 'none';
-        popupOverlay.style.display = 'none';
-      });
-
-      popup.style.display = 'none';
-      popupOverlay.style.display = 'none';
-
-      filterAssignments('all');
     });
+
+    closeBtn.addEventListener('click', function() {
+        popup.style.display = 'none';
+        popupOverlay.style.display = 'none';
+    });
+
+    popup.style.display = 'none';
+    popupOverlay.style.display = 'none';
+
+    filterAssignments('all');
+});
+
+    function closeDetailsPopup(id) {
+    var popupOverlay = document.getElementById('popupOverlay_' + id);
+    var popup = document.getElementById('popup_' + id);
+    popupOverlay.style.display = 'none';
+    popup.style.display = 'none';
+}
+
   </script>
 </body>
 </html>
