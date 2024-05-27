@@ -1,9 +1,12 @@
 body {
-  font-family: Arial, sans-serif;
-  background-color: #f2f2f2;
+  /* font-family: Arial, sans-serif; */
+  background-image: none;
+  background-color: #F5F5F5;
   margin: 0;
   padding: 0;
 }
+
+
 
 .popup,
 .popup-overlay {
@@ -11,7 +14,7 @@ body {
 }
 
 .header {
-  background-color: #333;
+  background-color: #124076;
   color: #fff;
   padding: 10px;
   display: flex;
@@ -19,10 +22,16 @@ body {
 }
 
 .header ul {
+  font-family: "Comfortaa", sans-serif;
   list-style-type: none;
   margin: 0;
-  padding: 0;
+  padding: 15px;
   display: flex;
+}
+
+.header ul a:hover {
+  background: #F9E897;
+  color: black; 
 }
 
 .header ul li {
@@ -36,12 +45,14 @@ body {
 }
 
 h1 {
+  font-family: "Jua", sans-serif;
   color: #333;
   margin-top: 20px;
   text-align: center;
 }
 
 .container {
+  font-family: "Comfortaa", sans-serif;
   margin: 20px;
   background-color: #fff;
   padding: 20px;
@@ -61,7 +72,6 @@ h1 {
 .sort-buttons button {
   padding: 5px 10px;
   margin-right: 10px;
-  background-color: #333;
   color: #fff;
   border: none;
   border-radius: 5px;
@@ -190,7 +200,7 @@ h1 {
 
 .sort-buttons button {
   padding: 5px 10px;
-  background-color: #333;
+  background-color: #124076;
   color: white;
   border: none;
   border-radius: 5px;
@@ -200,7 +210,7 @@ h1 {
 #createBtn {
   padding: 5px 10px;
   margin-right: 10px;
-  background-color: #4CAF50;
+  background-color: #7F9F80;
   color: #fff;
   border: none;
   border-radius: 5px;
