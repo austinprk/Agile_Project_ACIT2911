@@ -1,13 +1,13 @@
 body, html {
-  font-family: Arial, sans-serif;
   margin: 0;
   padding: 0;
-  background-color: #f9f9f9;
+  background-color: #F5F5F5;
+  background-image: none;
 }
 .header {
-  background-color: #333;
+  background-color: #124076;
   color: #fff;
-  padding: 10px;
+  padding: 24px;
   display: flex;
   justify-content: flex-end;
 }
@@ -21,21 +21,25 @@ body, html {
   margin-right: 10px;
 }
 .header ul li a {
+  font-family: "Comfortaa", sans-serif;
   color: #fff;
   text-decoration: none;
   padding: 5px;
 }
 h1 {
+  font-family: "Jua", sans-serif;
   color: #333;
   margin-top: 20px;
   text-align: center;
 }
 #monthLabel {
+  font-family: "Jua", sans-serif;
   text-align: center;
   font-size: 24px;
   margin: 20px 0;
 }
 #calendar {
+  font-family: "Comfortaa", sans-serif;
   display: grid;
   grid-template-columns: repeat(7, 1fr);
   gap: 5px;
@@ -52,6 +56,7 @@ h1 {
 }
 
 #prevMonth, #nextMonth {
+  font-family: "Comfortaa", sans-serif;
   margin: 10px;
 }
 .priority-container {
