@@ -14,6 +14,7 @@ body {
 }
 
 .header {
+  margin: 0;
   background-color: #124076;
   color: #fff;
   padding: 10px;
@@ -30,8 +31,8 @@ body {
 }
 
 .header ul a:hover {
-  background: #F9E897;
-  color: black; 
+  /* background: #F9E897; */
+  color: #FFC374; 
 }
 
 .header ul li {
@@ -42,12 +43,14 @@ body {
   color: #fff;
   text-decoration: none;
   padding: 5px;
+  transition: all 0.5s ease;
 }
 
 h1 {
   font-family: "Jua", sans-serif;
   color: #333;
-  margin-top: 20px;
+  margin-top: -5px;
+  margin-bottom: 20px;
   text-align: center;
 }
 
@@ -79,7 +82,7 @@ h1 {
 }
 
 .sort-buttons button:hover {
-  background-color: #555;
+  background-color: #103157;
 }
 
 .list-group-item {
@@ -156,13 +159,13 @@ h1 {
 }
 
 .badge-success {
-  background-color: green;
-  color: #fff;
+  background-color: #7F9F80;
+  color: #000;
 }
 
 .badge-danger {
-  background-color: red;
-  color: #fff;
+  background-color: #FFC374;
+  color: #000;
 }
 
 .badge-warning {
@@ -210,12 +213,22 @@ h1 {
 #createBtn {
   padding: 5px 10px;
   margin-right: 10px;
-  background-color: #7F9F80;
+  background-color: #477a48;
   color: #fff;
   border: none;
   border-radius: 5px;
   cursor: pointer;
 }
 
+#createBtn:hover {
+  background-color: #366137;
+}
 
+#submit1, #submit2 {
+  background-color: #477a48;
+  color: #fff;
+}
 
+#submit1:hover, #submit2:hover {
+  background-color: #366137;
+}
