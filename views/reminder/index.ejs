@@ -31,9 +31,9 @@
     <br>
     <div class="sort-buttons">
       <input type="text" id="searchInput" placeholder="Search assignments...">
-      <button onclick="sortAssignmentsByDueDate()">Sort by Due Date</button>
-      <button onclick="sortAssignmentsByType()">Sort by Type</button>
-      <button onclick="sortAssignmentsByPriority()">Sort by Priority</button>
+      <button class="btn-sorting" onclick="sortAssignmentsByDueDate()" data-sort="Due Date">Sort by Due Date</button>
+      <button class="btn-sorting" onclick="sortAssignmentsByType()" data-sort="Type">Sort by Type</button>
+      <button class="btn-sorting" onclick="sortAssignmentsByPriority()" data-sort="Priority">Sort by Priority</button>
       <div class="separator-sort-create"></div>
       <button id="createBtn">+ Add Assignment</button>
     </div>
@@ -220,49 +220,84 @@
   </div>
 
   <script>
+    var sortByDueDateAsc = true;
+    var sortByPriorityAsc = true;
+    var sortByTypeAsc = true;
+
+    function setInitialButtonText() {
+        var buttons = document.querySelectorAll(".btn-sorting");
+        buttons.forEach(function(button) {
+            var sortBy = button.getAttribute("data-sort");
+            button.textContent = "Sort by " + sortBy;
+        });
+    }
+
+    window.onload = function() {
+        setInitialButtonText();
+    };
+
     function sortAssignmentsByDueDate() {
-      var reminders = document.getElementsByClassName("list-group-item");
-      var remindersArray = Array.from(reminders);
-      remindersArray.sort(function(a, b) {
-        var dueDate1 = new Date(a.querySelector(".duedate").textContent);
-        var dueDate2 = new Date(b.querySelector(".duedate").textContent);
-        return dueDate1 - dueDate2;
-      });
-      var list = document.querySelector(".list-group");
-      list.innerHTML = "";
-      remindersArray.forEach(function(reminder) {
-        list.appendChild(reminder);
-      });
+        var reminders = document.getElementsByClassName("list-group-item");
+        var remindersArray = Array.from(reminders);
+        remindersArray.sort(function(a, b) {
+            var dueDate1 = new Date(a.querySelector(".duedate").textContent);
+            var dueDate2 = new Date(b.querySelector(".duedate").textContent);
+            if (sortByDueDateAsc) {
+                return dueDate1 - dueDate2;
+            } else {
+                return dueDate2 - dueDate1;
+            }
+        });
+        updateSortButtonText("Due Date", sortByDueDateAsc);
+        sortByDueDateAsc = !sortByDueDateAsc;
+        updateList(remindersArray);
     }
 
     function sortAssignmentsByPriority() {
-      var reminders = document.getElementsByClassName("list-group-item");
-      var remindersArray = Array.from(reminders);
-      remindersArray.sort(function(a, b) {
-        var starsA = a.querySelectorAll(".priority > span").length;
-        var starsB = b.querySelectorAll(".priority > span").length;
-        return starsB - starsA;
-      });
-      var list = document.querySelector(".list-group");
-      list.innerHTML = "";
-      remindersArray.forEach(function(reminder) {
-        list.appendChild(reminder);
-      });
+        var reminders = document.getElementsByClassName("list-group-item");
+        var remindersArray = Array.from(reminders);
+        remindersArray.sort(function(a, b) {
+            var starsA = a.querySelectorAll(".priority > span").length;
+            var starsB = b.querySelectorAll(".priority > span").length;
+            if (sortByPriorityAsc) {
+                return starsB - starsA;
+            } else {
+                return starsA - starsB;
+            }
+        });
+        updateSortButtonText("Priority", sortByPriorityAsc);
+        sortByPriorityAsc = !sortByPriorityAsc;
+        updateList(remindersArray);
     }
 
     function sortAssignmentsByType() {
-      var reminders = document.getElementsByClassName("list-group-item");
-      var remindersArray = Array.from(reminders);
-      remindersArray.sort(function(a, b) {
-        var typeA = a.querySelector(".type").textContent;
-        var typeB = b.querySelector(".type").textContent;
-        return typeA.localeCompare(typeB);
-      });
-      var list = document.querySelector(".list-group");
-      list.innerHTML = "";
-      remindersArray.forEach(function(reminder) {
-        list.appendChild(reminder);
-      });
+        var reminders = document.getElementsByClassName("list-group-item");
+        var remindersArray = Array.from(reminders);
+        remindersArray.sort(function(a, b) {
+            var typeA = a.querySelector(".type").textContent;
+            var typeB = b.querySelector(".type").textContent;
+            if (sortByTypeAsc) {
+                return typeA.localeCompare(typeB);
+            } else {
+                return typeB.localeCompare(typeA);
+            }
+        });
+        updateSortButtonText("Type", sortByTypeAsc);
+        sortByTypeAsc = !sortByTypeAsc;
+        updateList(remindersArray);
+    }
+
+    function updateSortButtonText(sortBy, asc) {
+        var button = document.querySelector(".btn-sorting[data-sort='" + sortBy + "']");
+        button.textContent = "Sort by " + sortBy + (asc ? " ↑" : " ↓");
+    }
+
+    function updateList(sortedArray) {
+        var list = document.querySelector(".list-group");
+        list.innerHTML = "";
+        sortedArray.forEach(function(reminder) {
+            list.appendChild(reminder);
+        });
     }
 
     function searchAssignments() {
