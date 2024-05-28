@@ -51,9 +51,9 @@ let database = {
             completed : false,
             priority : 1,
         },
-        { id: 6, title: "ACIT1234", type: "Assignment", description: "Assignment 1 due date", duedate: "2024-07-01", tag: "#Assignment #ACIT1234", completed: false, priority: 2, },
-        { id: 7, title: "ACIT5678", type: "Assignment", description: "Assignment 2 due date", duedate: "2024-07-15", tag: "#Assignment #ACIT5678", completed: false, priority: 3, },
-        { id: 8, title: "ACCG5110", type: "Assignment", description: "Assignment 3 due date", duedate: "2024-07-30", tag: "#Assignment #ACCG5110", completed: false, priority: 1, },
+        { id: 6, title: "ACIT1234", type: "Lab", description: "Lab 1 due date", duedate: "2024-07-01", tag: "#Assignment #ACIT1234", completed: false, priority: 2, },
+        { id: 7, title: "ACIT5678", type: "Project", description: "Project due date", duedate: "2024-07-15", tag: "#Assignment #ACIT5678", completed: false, priority: 3, },
+        { id: 8, title: "ACCG5110", type: "Quiz", description: "Quiz 3 due date", duedate: "2024-07-30", tag: "#Assignment #ACCG5110", completed: false, priority: 1, },
         
     ]
 };
