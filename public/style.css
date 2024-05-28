@@ -210,3 +210,7 @@ body {
     gap: 10px;
   }
   
+  .badge-danger {
+    background-color: #ff7a68;
+    color: #000;
+  }

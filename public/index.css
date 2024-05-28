@@ -159,12 +159,12 @@ h1 {
 }
 
 .badge-success {
-  background-color: #7F9F80;
+  background-color: #addcaf;
   color: #000;
 }
 
 .badge-danger {
-  background-color: #FFC374;
+  background-color: #ff7a68;
   color: #000;
 }
 
@@ -272,4 +272,16 @@ h1 {
 
 .popup-header {
 margin-bottom: 10px;
+}
+
+#deleteBtn {
+  background-color: #ff7a68;
+  border: none;
+  color: #000;
+}
+
+#editBtn {
+  background-color: #FFC374;
+  border: none;
+  color: #000;
 }

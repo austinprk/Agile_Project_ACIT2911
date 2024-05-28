@@ -70,9 +70,9 @@
         <br>
         <br>
         <div class="button-group">
-          <button class="btn btn-warning" onclick="showDetailsPopup('<%= reminderItem.id %>')">Edit</button>
+          <button class="btn btn-warning" id="editBtn" onclick="showDetailsPopup('<%= reminderItem.id %>')">Edit</button>
           <form action="/reminder/delete/<%= reminderItem.id %>" method="post" style="display: inline;">
-            <button type="submit" class="btn btn-danger" onclick="return confirm('Do you really want to delete this assignment?');">Delete</button>
+            <button type="submit" class="btn btn-danger" id="deleteBtn" onclick="return confirm('Do you really want to delete this assignment?');">Delete</button>
           </form>
         </div>
 
@@ -178,7 +178,7 @@
   <div class="popup-overlay" id="popupOverlay"></div>
   <div class="popup" id="popup">
     <div class="popup-header">
-      <h2>Add an Assignment</h2>
+      <h2 id="addTitle">Add an Assignment</h2>
       <h2 class="close-btn" id="closeBtn">&times;</h2>
     </div>
     <div class="popup-body">
