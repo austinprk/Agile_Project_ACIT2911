@@ -5,31 +5,73 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard/Main Page</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Andika:ital,wght@0,400;0,700;1,400;1,700&family=Balsamiq+Sans:ital,wght@0,400;0,700;1,400;1,700&family=Comfortaa:wght@300..700&family=Comic+Neue:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&family=Darker+Grotesque:wght@300..900&family=Jua&display=swap" rel="stylesheet">
    
 </head>
 <body>
-    <header class="header">
-        <h1 id="header-title">ParkYourAssignment</h1>
+    <section>
+        <div id="logo">
+            <img src="logo.png" alt="ParkYourAssignment logo">
+        </div>
         <nav id="nav1">
-
             <ul>
-                <li><a href="/reminders">Dashboard</a></li>
+                <li><a href="/">Dashboard</a></li>
+                <li><a href="/reminders">Assignment</a></li>
                 <li><a href="/calendar">Calendar</a></li>
-                <li><a href="/reminder/new">Create</a></li>
-                <li><a href="#">Delete</a></li>
-                <li><a href="#">Modify</a></li>
             </ul>
         </nav>
-
-        <h1 id="dashboard">Dashboard</h1>
-        <div id="clock">
-
-            <iframe scrolling="no" frameborder="no" clocktype="html5" style="overflow:hidden;border:0;margin:0;padding:0;width:151px;height:50px;"src="https://www.clocklink.com/html5embed.php?clock=008&timezone=Canada_Vancouver&color=black&size=151&Title=&Message=&Target=&From=2024,1,1,0,0,0&Color=black"></iframe>
-
+        
+    </section>
+    <header class="top-of-header">
+        <div id="date">
+            <script>
+                document.getElementById('date').innerText = getDate();
+                document.getElementById('day').innerText = getDay();
+        
+                function getDate() {
+                    var today = new Date();
+                    var year = today.getFullYear();
+                    var monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+                    var month = monthNames[today.getMonth()];
+                    var date = today.getDate();
+                    return year + ", " + month + " " + date;
+                }
+        
+                function getDay() {
+                    var days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+                    var today = new Date();
+                    var dayIndex = today.getDay();
+                    return days[dayIndex];
+                }
+            </script>
         </div>
+
+       <div id="clock">
+            <script>
+                function updateClock() {
+                  const now = new Date();
+                  const hours = now.getHours().toString().padStart(2, '0');
+                  const minutes = now.getMinutes().toString().padStart(2, '0');
+                  const seconds = now.getSeconds().toString().padStart(2, '0');
+                  const timeString = `${hours}:${minutes}:${seconds}`;
+                  document.getElementById('clock').textContent = timeString;
+                }
+              
+                // Update the clock every second
+                setInterval(updateClock, 1000);
+              
+                updateClock();
+              </script>
+        </div>
+        <h1 id="date"></h1>
+        <h2 id="day"></h2>
+
+
     </header>
 
-        <h2>URGENT Assignments</h2>
+        <h2 id="assignment-header">Urgent Assignments</h2>
 
     <div id="urgent-assignments">
         <% reminders.forEach(function (reminderItem) { %>
@@ -42,16 +84,15 @@
             <p>Type: <%= reminderItem.type %></p>
             <p>Due Date: <%= reminderItem.duedate %></p>
             <p>Description: <%= reminderItem.description %></p>
-
-            <% if (dateDiff <= 2 * oneDay) { %>
-                <p> Priority: Urgent </p>
-            <% } else if (dateDiff > 2 * oneDay && dateDiff <= 4 * oneDay) { %>
-                <p> Priority: High </p>
-            <% } else if (dateDiff > 4 * oneDay && dateDiff <= 6 * oneDay) { %>
-                <p> Priority: Medium </p>
-            <% } else if (dateDiff > 6 * oneDay) { %>
-                <p> Priority: Low </p>
-            <% } %>
+            <% if (reminderItem.priority == 3) { %>
+                <p>Priority: ★★★</p>
+              <% } %>
+              <% if (reminderItem.priority == 2) { %>
+                <p>Priority: ★★</p>
+              <% } %>
+              <% if (reminderItem.priority == 1) { %>
+                <p>Priority: ★</p>
+              <% } %>
 
             <p>Status: 
                 <% if (reminderItem.completed == true) { %>
@@ -68,5 +109,7 @@
 </div>
 
 </body>
+
 </html>
+
 

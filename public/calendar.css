@@ -1,0 +1,177 @@
+body, html {
+  margin: 0;
+  padding: 0;
+  background-color: #F5F5F5;
+  background-image: none;
+}
+.header {
+  margin:0;
+  background-color: #124076;
+  color: #fff;
+  padding: 24px;
+  display: flex;
+  justify-content: flex-end;
+}
+.header ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+}
+.header ul li {
+  margin-right: 10px;
+}
+.header ul li a {
+  font-family: "Comfortaa", sans-serif;
+  color: #fff;
+  text-decoration: none;
+  padding: 5px;
+  transition: all 0.5s ease;
+}
+
+.header ul a:hover {
+  /* background: #F9E897; */
+  color: #FFC374; 
+}
+
+h1 {
+  font-family: "Jua", sans-serif;
+  color: #333;
+  margin-top: 20px;
+  text-align: center;
+}
+#monthLabel {
+  font-family: "Jua", sans-serif;
+  text-align: center;
+  font-size: 40px;
+  margin: 20px 0;
+}
+#calendar {
+  font-family: "Comfortaa", sans-serif;
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 5px;
+  padding: 10px;
+}
+.day, .day-name {
+  padding: 10px;
+  border: 1px solid #ddd;
+  text-align: center;
+}
+.day {
+  /* cursor: pointer; */
+  background: #f0f0f0;
+}
+
+#prevMonth, #nextMonth {
+  font-family: "Comfortaa", sans-serif;
+  margin: 10px;
+}
+.priority-container {
+  display: flex;
+  justify-content: center;
+  position: absolute;
+  top: 20px;
+  right: 20px;
+}
+.priority-item {
+  margin: 0 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center; 
+}
+
+.priority-box {
+  width: 30px;
+  height: 30px;
+  border: 1px solid black;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  color : white
+}
+.container {
+  margin: 20px auto;
+  background-color: #fff;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  text-align: center;
+  max-width: 1000px;
+  position: relative;
+}
+#expanded-box {
+  display: none;
+  margin-top: 20px;
+  padding: 10px;
+  border: 1px solid #ddd;
+  background-color: #f0f0f0;
+  text-align: center;
+}
+
+.priority-box.red {
+  background-color: #ffc77d;
+  color: black;
+}
+
+.priority-box.yellow {
+  background-color: #9bd19c;
+  color: black;
+}
+
+.priority-box.blue {
+  background-color: #ff7a68;
+  color: black;
+}
+
+#prevMonth, #nextMonth {
+  padding: 5px 10px;
+  margin-right: 10px;
+  background-color: #124076;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+#prevMonth:hover,#nextMonth:hover {
+  background-color: #103157;
+}
+
+.reminder {
+  padding: 5px;
+  margin: 2px 0;
+  border-radius: 3px;
+  color: white;
+  text-align: center;
+}
+
+.priority-1 {
+  background-color: #ffc77d;
+  color: black;
+}
+
+.priority-2 {
+  background-color: #9bd19c;
+  color: black; /* i added this color for readability as the text was white on yellow */
+}
+
+.priority-3 {
+  background-color: #ff7a68;
+  color: black;
+}
+
+#monthbtns {
+  display: flex;
+  justify-content: space-between;
+}
+
+.day-name {
+  font-weight: bold;
+  background-color: #F9E897;
+}
+
+#third {
+  margin-left: 5px;
+}

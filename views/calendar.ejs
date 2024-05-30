@@ -1,118 +1,147 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Calendar</title>
-    <style>
-
-        .calendar {
-            display: grid;
-            grid-template-columns: repeat(7, 1fr);
-            gap: 10px;
-        }
-        
-        .calendar-header {
-            text-align: center;
-            font-weight: bold;
-        }
-        
-        .calendar-day {
-            text-align: center;
-            border: 1px solid #ccc;
-            padding: 10px;
-        }
-        
-        .calendar-day:hover {
-            background-color: #f2f2f2;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="calendar.css">
+  <title>Assignments Calendar</title>
+  <link href="https://fonts.googleapis.com/css2?family=Andika:ital,wght@0,400;0,700;1,400;1,700&family=Balsamiq+Sans:ital,wght@0,400;0,700;1,400;1,700&family=Comfortaa:wght@300..700&family=Comic+Neue:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&family=Darker+Grotesque:wght@300..900&family=Jua&display=swap" rel="stylesheet">
 </head>
-<header class="header">
-    <nav id="nav1">
-  
-        <ul>
-            <li><a href="/reminders">Dashboard</a></li>
-            <li><a href="/calendar">Calendar</a></li>
-            <li><a href="/reminder/new">Create</a></li>
-            <li><a href="#">Delete</a></li>
-            <li><a href="#">Modify</a></li>
-        </ul>
-    </nav>
-  
-  </header>
-  
 <body>
-    <div class="calendar">
-        <div class="calendar-header">
-            <button id="prevMonth">Previous</button>
-            <span id="currentMonthYear"></span>
-            <button id="nextMonth">Next</button>
-        </div>
-        
-        <div class="calendar-header">Sunday</div>
-        <div class="calendar-header">Monday</div>
-        <div class="calendar-header">Tuesday</div>a
-        <div class="calendar-header">Wednesday</div>
-        <div class="calendar-header">Thursday</div>
-        <div class="calendar-header">Friday</div>
-        <div class="calendar-header">Saturday</div>
-        
-    
-
-        <div class="calendar-day">1</div>
-        <div class="calendar-day">2</div>
-        <div class="calendar-day">3</div>
-
+  <div id="logo">
+    <img src="logo.png" alt="ParkYourAssignment logo">
+</div>
+  <header class="header">
+    <nav>
+      <ul>
+        <li><a href="/">Dashboard</a></li>
+        <li><a href="/reminders">Assignment</a></li>
+        <li><a href="/calendar">Calendar</a></li>
+      </ul>
+    </nav>
+  </header>
+  <h1><b>Assignments Calendar</b></h1>
+  <div class="container">
+    <div id="monthLabel"></div>
+    <div id="monthbtns">
+      <button id="prevMonth">Previous Month</button>
+      <button id="nextMonth">Next Month</button>
     </div>
+    <div class="priority-container">
+      <div class="priority-item">
+        <div class="priority-box red">0</div>
+        <div>★</div>
+      </div>
+      <div class="priority-item">
+        <div class="priority-box yellow">0</div>
+        <div>★★</div>
+      </div>
+      <div class="priority-item">
+        <div class="priority-box blue">0</div>
+        <div>★★★</div>
+      </div>
+    </div>
+    <div id="calendar"></div>
+    <div id="expanded-box"></div>
+  </div>
+  <script>
+    let currentYear = new Date().getFullYear();
+    let currentMonth = new Date().getMonth() + 1;
 
-    <% reminders.forEach(function (reminderItem) { %>
+    function updateMonthLabel(year, month) {
+      const monthNames = ["January", "February", "March", "April", "May", "June",
+        "July", "August", "September", "October", "November", "December"];
+      document.getElementById('monthLabel').textContent = `${monthNames[month - 1]} ${year}`;
+    }
 
-        <strong><%= reminderItem.title %>: </strong>
-          <%= reminderItem.duedate %>
-    <% }) %>
-    
- 
+    function clearCalendar() {
+      document.getElementById('calendar').innerHTML = '';
+    }
 
-    <script>
+    function generateCalendar(year, month, reminders) {
+      clearCalendar();
+      updateMonthLabel(year, month);
+      let priorityCounts = {1: 0, 2: 0, 3: 0};
 
-        const prevMonthButton = document.getElementById('prevMonth');
-        const nextMonthButton = document.getElementById('nextMonth');
-        const currentMonthYear = document.getElementById('currentMonthYear');
-        
-        let currentDate = new Date();
-        
-        function updateCalendar() {
-            const monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-            const currentMonth = currentDate.getMonth();
-            const currentYear = currentDate.getFullYear();
-            
-            currentMonthYear.textContent = `${monthNames[currentMonth]} ${currentYear}`;
-            
+      const daysInMonth = new Date(year, month, 0).getDate();
+      const firstDay = new Date(year, month - 1, 1).getDay();
+      const calendarDiv = document.getElementById('calendar');
+      const dayNames = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+      dayNames.forEach(dayName => {
+        const dayNameDiv = document.createElement('div');
+        dayNameDiv.className = 'day-name';
+        dayNameDiv.textContent = dayName;
+        dayNameDiv.style.height = '40px'; 
+        dayNameDiv.style.textAlign = 'center'; 
+        dayNameDiv.style.lineHeight = 'center';
+        dayNameDiv.style.fontWeight = 'bold'; 
+        calendarDiv.appendChild(dayNameDiv);
+      });
 
-            const calendarDays = document.querySelectorAll('.calendar-day');
-            calendarDays.forEach(day => day.remove());
+      for (let i = 0; i < firstDay; i++) {
+        calendarDiv.appendChild(document.createElement('div'));
+      }
 
-            const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
-            for (let day = 1; day <= daysInMonth; day++) {
-                const calendarDay = document.createElement('div');
-                calendarDay.classList.add('calendar-day');
-                calendarDay.textContent = day;
-                document.querySelector('.calendar').appendChild(calendarDay);
-            }
-        }
-        
-        prevMonthButton.addEventListener('click', () => {
-            currentDate.setMonth(currentDate.getMonth() - 1);
-            updateCalendar();
+      for (let day = 1; day <= daysInMonth; day++) {
+        const dayDiv = document.createElement('div');
+        dayDiv.className = 'day';
+        dayDiv.textContent = day;
+
+        reminders.forEach(reminder => {
+          const reminderDate = new Date(reminder.duedate);
+          if (!reminder.completed && reminderDate.getDate() + 1 === day && reminderDate.getMonth() + 1 === month && reminderDate.getFullYear() === year) {
+            const reminderElement = document.createElement('div');
+            reminderElement.className = `reminder priority-${reminder.priority}`;
+            reminderElement.textContent = reminder.title;
+            dayDiv.appendChild(reminderElement);
+            priorityCounts[reminder.priority]++;
+          }
         });
-        
-        nextMonthButton.addEventListener('click', () => {
-            currentDate.setMonth(currentDate.getMonth() + 1);
-            updateCalendar();
-        });
-        
-        updateCalendar();
-    </script>
 
+        calendarDiv.appendChild(dayDiv);
+      }
 
+      updatePriorityCounts(priorityCounts);
+    }
+
+    function updatePriorityCounts(priorityCounts) {
+      const priorityContainer = document.querySelector('.priority-container');
+      const redBox = priorityContainer.querySelector('.priority-box.red');
+      const yellowBox = priorityContainer.querySelector('.priority-box.yellow');
+      const blueBox = priorityContainer.querySelector('.priority-box.blue');
+      redBox.textContent = priorityCounts[1];
+      yellowBox.textContent = priorityCounts[2];
+      blueBox.textContent = priorityCounts[3];
+    }
+
+    document.getElementById('prevMonth').addEventListener('click', function () {
+      if (currentMonth === 1) {
+        currentMonth = 12;
+        currentYear--;
+      } else {
+        currentMonth--;
+      }
+      generateCalendar(currentYear, currentMonth, reminders);
+    });
+
+    document.getElementById('nextMonth').addEventListener('click', function () {
+      if (currentMonth === 12) {
+        currentMonth = 1;
+        currentYear++;
+      } else {
+        currentMonth++;
+      }
+      generateCalendar(currentYear, currentMonth, reminders);
+    });
+
+    const reminders = <%- JSON.stringify(reminders) %>;
+    generateCalendar(currentYear, currentMonth, reminders);
+
+    document.getElementById("calendar").addEventListener("click", function(event) {
+      if (event.target.classList.contains("day")) {
+        toggleBox(event.target);
+      }
+    });
+  </script>
 </body>
 </html>

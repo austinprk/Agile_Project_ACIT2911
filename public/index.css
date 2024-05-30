@@ -1,0 +1,285 @@
+body {
+
+  background-image: none;
+  background-color: #F5F5F5;
+  margin: 0;
+  padding: 0;
+}
+
+.popup,
+.popup-overlay {
+  display: none;
+}
+
+.header {
+  margin: 0;
+  background-color: #124076;
+  color: #fff;
+  padding: 10px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.header ul {
+  font-family: "Comfortaa", sans-serif;
+  list-style-type: none;
+  margin: 0;
+  padding: 15px;
+  display: flex;
+}
+
+.header ul a:hover {
+  /* background: #F9E897; */
+  color: #FFC374; 
+}
+
+.header ul li {
+  margin-right: 10px;
+}
+
+.header ul li a {
+  color: #fff;
+  text-decoration: none;
+  padding: 5px;
+  transition: all 0.5s ease;
+}
+
+h1 {
+  font-family: "Jua", sans-serif;
+  color: #333;
+  margin-top: -5px;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.container {
+  font-family: "Comfortaa", sans-serif;
+  margin: 20px;
+  background-color: #fff;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.search-container {
+  margin-bottom: 10px;
+}
+
+.search-container input[type="text"] {
+  padding: 5px;
+  width: 200px;
+}
+
+.sort-buttons button {
+  padding: 5px 10px;
+  margin-right: 10px;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.sort-buttons button:hover {
+  background-color: #103157;
+}
+
+.list-group-item {
+  background-color: #f9f9f9;
+  border: 1px solid #ccc;
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+}
+
+.list-group-item strong {
+  font-weight: bold;
+  color: #333;
+}
+
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.list-group {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.status-and-priority {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+.badge {
+  padding: 5px 10px;
+  font-size: 0.9em;
+}
+
+.priority {
+  display: flex;
+}
+
+.list-group-item {
+  background: #fff;
+  border: 1px solid #ccc;
+  padding: 15px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  line-height: 1.5;
+}
+
+@media (max-width: 768px) {
+  .list-group {
+    grid-template-columns: 1;
+  }
+}
+
+.button-group {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+.badge {
+  padding: 5px;
+  margin-right: 5px;
+  border-radius: 5px;
+}
+
+.badge-success {
+  background-color: #addcaf;
+  color: #000;
+}
+
+.badge-danger {
+  background-color: #ff7a68;
+  color: #000;
+}
+
+.badge-warning {
+  background-color: grey;
+  color: #fff;
+}
+
+.badge-info {
+  background-color: blue;
+  color: #fff;
+}
+
+.badge-secondary {
+  background-color: gray;
+  color: #fff;
+}
+
+.pull-right {
+  float: right;
+}
+
+.sort-buttons {
+  display: flex;  
+  align-items: center; 
+  gap: 10px;  
+}
+
+
+#searchInput {
+  flex-grow: 1;  
+  padding: 5px;
+  border: 1px solid #ccc;
+}
+
+
+.sort-buttons button {
+  padding: 5px 10px;
+  background-color: #124076;
+  color: white;
+  border: none;
+  border-radius: 5px;
+}
+
+
+#createBtn {
+  padding: 5px 10px;
+  margin-right: 10px;
+  background-color: #477a48;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+#createBtn:hover {
+  background-color: #366137;
+}
+
+#submit1, #submit2 {
+  background-color: #477a48;
+  color: #fff;
+}
+
+#submit1:hover, #submit2:hover {
+  background-color: #366137;
+}
+
+.popupTitle {
+  text-align: center;
+}
+
+#addTitle {
+  margin-left: 40px;
+  margin-bottom: 10px;
+}
+
+.close-btn {
+  float: right;
+  font-size: 40px;
+  font-weight: bold;
+  padding: 2px 6px;
+  background-color: #f5f5f5;
+  color: #124076;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.close-btn:hover {
+  color: #103157;
+}
+
+#closeBtn {
+  margin-bottom: 10px;
+}
+
+#editTitle {
+  margin-left: 150px;
+}
+
+.popup {
+  background-color: #f5f5f5;
+}
+
+.popup-header {
+margin-bottom: 10px;
+}
+
+#deleteBtn {
+  background-color: #ff7a68;
+  border: none;
+  color: #000;
+}
+
+#editBtn {
+  background-color: #FFC374;
+  border: none;
+  color: #000;
+}
