@@ -74,13 +74,22 @@ The purpose of "ParkYourAssignment" is to help students manage and track their a
    - Navigate to your project directory in the terminal.
    - Run the following command to install necessary dependencies:
      ```bash
-     npm install express express-ejs-layouts
+     npm install [module name]
      ```
+
+     Here are the modules you might need to install :
+     1. ejs
+     2. express
+     3. nodemon
+     4. mocha
+     5. nyc
+     6. istanbul
+
 
 3. **Run the Server**:
    - Start the server by running:
      ```bash
-     node server.js
+     nodemon server.js
      ```
    - Open your browser and go to `http://localhost:3001/`.
 
